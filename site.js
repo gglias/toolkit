@@ -22,6 +22,13 @@
     toastEl.querySelector("span").textContent = text;
     toastEl.classList.toggle("is-bad", !!bad);
     toastEl.classList.add("is-on");
+    // Sit just above the export bar (wherever it is right now), centred on it
+    var bar = document.querySelector(".export-bar");
+    if (bar) {
+      var r = bar.getBoundingClientRect();
+      toastEl.style.bottom = Math.max(16, window.innerHeight - r.top + 10) + "px";
+      toastEl.style.left = r.left + r.width / 2 + "px";
+    }
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toastEl.classList.remove("is-on"); }, 2200);
   };

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3" />
+  <link rel="stylesheet" href="../styles.css?v=5" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
@@ -239,27 +239,24 @@
             <button type="button" data-value="4" aria-pressed="false">Standard</button>
           </div>
         </div>
-
-        <div class="sec">
-          <div class="sec-title">Export</div>
-          <button type="button" class="btn is-primary" data-export="svg" data-cursor="Download" style="margin-bottom:8px"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>Download SVG · for print</button>
-          <div class="png-row">
-            <select class="select" data-png-size aria-label="PNG size">
-              <option value="512">512 px</option>
-              <option value="1024" selected>1024 px</option>
-              <option value="2048">2048 px</option>
-              <option value="4096">4096 px</option>
-            </select>
-            <button type="button" class="btn" data-export="png" data-cursor="Download">Download PNG</button>
-          </div>
-          <div class="btn-row">
-            <button type="button" class="btn" data-copy="svg" data-cursor="Copy">Copy for Figma</button>
-            <button type="button" class="btn" data-copy="png" data-cursor="Copy">Copy PNG</button>
-          </div>
-          <p class="hint">SVG is vector: it opens in Illustrator and stays sharp at any size. “Copy for Figma” pastes as editable vector layers.</p>
-        </div>
       </section>
     </main>
+
+    <!-- Export: a floating bar like the portfolio's bottom nav, always in view -->
+    <div class="export-bar" role="toolbar" aria-label="Export">
+      <button type="button" class="xb-btn is-primary" data-export="svg" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>SVG</b><span class="tb-tip" aria-hidden="true">Vector · sharp at any size, for print</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <select class="xb-select" data-png-size aria-label="PNG size">
+        <option value="512">512 px</option>
+        <option value="1024" selected>1024 px</option>
+        <option value="2048">2048 px</option>
+        <option value="4096">4096 px</option>
+      </select>
+      <button type="button" class="xb-btn" data-export="png" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>PNG</b><span class="tb-tip" aria-hidden="true">Image for web &amp; social</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <button type="button" class="xb-btn" data-copy="svg" data-cursor="Copy" aria-label="Copy for Figma"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a3 3 0 0 0-3 3v0a3 3 0 0 0 3 3h0a3 3 0 0 0 0-6zM9 9.5a3 3 0 1 0 3 3v-3zM12 9.5h0a3 3 0 1 1 0 6M9 15.5a3 3 0 1 0 3 3v-3z"/></svg><b>Copy for Figma</b><span class="tb-tip" aria-hidden="true">Copy for Figma · pastes as vector</span></button>
+      <button type="button" class="xb-btn" data-copy="png" data-cursor="Copy" aria-label="Copy PNG"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></svg><b>Copy PNG</b><span class="tb-tip" aria-hidden="true">Copy PNG · for docs, mail, chat</span></button>
+    </div>
 
     <footer class="foot">
       <span>Made by <a href="https://gglias.github.io/" target="_blank" rel="noopener">Greg Glias</a>. QR drawing by qr-code-styling (MIT), scan test by jsQR (Apache 2.0).</span>
@@ -275,7 +272,7 @@
   </div>
 
 
-  <script src="../site.js?v=2"></script>
+  <script src="../site.js?v=3"></script>
   <script src="../vendor/qr-code-styling.js"></script>
   <script src="qr.js?v=1"></script>
 </body>

@@ -402,7 +402,7 @@ a.tool:hover .art-qr { transform: rotate(0deg) scale(1.04); }
 .panel {
   position: sticky;
   top: 16px;
-  max-height: calc(100dvh - 32px);
+  max-height: calc(100dvh - 104px);   /* ends above the export bar */
   overflow: auto;
   padding-bottom: 14px;
   scrollbar-width: thin;
@@ -1150,6 +1150,73 @@ html.has-fig-cursor .fig-cursor.is-text { opacity: 0; }
 .toolbar a:focus-visible .tb-tip { opacity: 1; transform: translate(-50%, 0); }
 .toolbar a.is-active:hover .tb-tip { opacity: 0; }
 
+/* ================= Export bar (same build as the portfolio's bottom nav) ================= */
+/* Sticky to the bottom of the screen, centred in the tool area */
+.export-bar {
+  position: sticky;
+  bottom: 18px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 20px auto 0;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgb(30 30 33 / 0.82);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+}
+.xb-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 13px 0 11px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #c9c9cf;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+.xb-btn b { font: 600 13px/1 var(--f-body); }
+.xb-btn:hover { background: rgb(255 255 255 / 0.08); color: #fff; }
+.xb-btn:active { transform: scale(0.97); }
+.xb-btn.is-primary {
+  padding-right: 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 8px 22px -10px var(--accent);
+}
+.xb-btn.is-primary:hover { background: color-mix(in srgb, var(--accent) 88%, #fff); }
+.xb-btn:disabled { opacity: 0.4; pointer-events: none; }
+.xb-btn:hover .tb-tip,
+.xb-btn:focus-visible .tb-tip { opacity: 1; transform: translate(-50%, 0); }
+.xb-select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 34px;
+  margin: 0 2px 0 4px;
+  padding: 0 26px 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%239b9ba1' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 8px center / 11px;
+  color: #c9c9cf;
+  font: 400 12px/1 var(--f-mono);
+}
+.xb-select:hover { border-color: var(--line-2); color: #fff; }
+.xb-select option { background: #1b1b1e; }
+/* Keep the bar within the canvas column: on mid widths the copy buttons go icon-only */
+@container (max-width: 1300px) {
+  .xb-btn[data-copy] { padding: 0 11px; }
+  .xb-btn[data-copy] b { display: none; }
+}
+
 /* ================= App layout: sidebar + main ================= */
 @view-transition { navigation: auto; }   /* page changes cross-fade; the sidebar stays put */
 
@@ -1395,6 +1462,18 @@ html.sb-mini .sb-item:has(.sb-badge:not(.is-soon)) .sb-ic::after {
   .checks li { grid-template-columns: 22px minmax(0, 1fr); }
   .checks li .v { grid-column: 2; }
   .tool-hero { padding-top: 28px; }
+  /* Export bar on a phone: copy buttons become icons */
+  .export-bar { bottom: 12px; }
+  .export-bar { padding: 5px; }
+  .export-bar .tb-sep { margin: 0 2px; }
+  .xb-btn { gap: 6px; padding: 0 9px; }
+  .xb-btn.is-primary { padding: 0 12px 0 10px; }
+  .xb-btn[data-copy] b { display: none; }
+  .xb-select { margin: 0 2px; padding: 0 20px 0 8px; background-position: right 6px center; }
+  .export-bar .tb-tip { display: none; }   /* no hover on phones; off-screen tips would widen the page */
+}
+@media (hover: none) {
+  .tb-tip { display: none; }
 }
 
 /* Phone / small tablet: the sidebar becomes a drawer */
