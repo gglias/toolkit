@@ -53,8 +53,8 @@
     "</nav>" +
     '<div class="sb-foot">' +
       '<p class="sb-note">' + svg("lock") + '<span class="sb-name">Runs in your browser. Nothing is uploaded.</span></p>' +
-      '<a class="sb-item is-ext" href="https://gglias.github.io/" data-cursor="Portfolio"><span class="sb-ic">' + svg("portfolio") + '</span><span class="sb-name">Portfolio</span><span class="sb-ext" aria-hidden="true">↗</span></a>' +
-      '<a class="sb-item is-ext" href="https://github.com/gglias/toolkit" data-cursor="Source"><span class="sb-ic">' + svg("github") + '</span><span class="sb-name">Source on GitHub</span><span class="sb-ext" aria-hidden="true">↗</span></a>' +
+      '<a class="sb-item is-ext" href="https://gglias.github.io/" target="_blank" rel="noopener" data-cursor="Portfolio"><span class="sb-ic">' + svg("portfolio") + '</span><span class="sb-name">Portfolio</span><span class="sb-ext" aria-hidden="true">↗</span></a>' +
+      '<a class="sb-item is-ext" href="https://github.com/gglias/toolkit" target="_blank" rel="noopener" data-cursor="Source"><span class="sb-ic">' + svg("github") + '</span><span class="sb-name">Source on GitHub</span><span class="sb-ext" aria-hidden="true">↗</span></a>' +
     "</div>";
 
   var aside = document.getElementById("sidebar");
