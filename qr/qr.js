@@ -258,7 +258,8 @@
     setCheck("ecc", "info", lvl + " · survives up to " + pct + " damage" + (logo ? "<small>Set to H automatically, because the logo covers part of the code.</small>" : ""));
   };
 
-  // ---------- Scan test (jsQR, loaded on first use) ----------
+  // ---------- Scan test (jsQR in a Web Worker; main thread only as a fallback) ----------
+  var coarse = window.matchMedia("(hover: none)").matches;
   var jsqrLoading = null;
   var loadJsQR = function () {
     if (window.jsQR) return Promise.resolve();
@@ -273,6 +274,47 @@
     }
     return jsqrLoading;
   };
+  var mainDecoder = function () {
+    return loadJsQR().then(function () {
+      return function (img) {
+        var r = window.jsQR(img.data, img.width, img.height, { inversionAttempts: "attemptBoth" });
+        return Promise.resolve(r ? r.binaryData : null);
+      };
+    });
+  };
+
+  // Resolves to decode(imageData) -> Promise<bytes | null>
+  var decoderP = null;
+  var getDecoder = function () {
+    if (decoderP) return decoderP;
+    decoderP = new Promise(function (resolve) {
+      var w;
+      try { w = new Worker("scan-worker.js"); } catch (e) { resolve(mainDecoder()); return; }
+      var seq = 0, waiting = {};
+      var giveUp = function () { clearTimeout(timer); w.terminate(); resolve(mainDecoder()); };
+      var timer = setTimeout(giveUp, 6000);
+      w.onerror = giveUp;
+      w.onmessage = function (e) {
+        if (e.data.ready) {
+          clearTimeout(timer);
+          resolve(function (img) {
+            return new Promise(function (done) {
+              var id = ++seq;
+              waiting[id] = done;
+              w.postMessage({ id: id, buf: img.data.buffer, w: img.width, h: img.height }, [img.data.buffer]);
+            });
+          });
+          return;
+        }
+        var cb = waiting[e.data.id];
+        delete waiting[e.data.id];
+        if (cb) cb(e.data.bytes);
+      };
+    });
+    return decoderP;
+  };
+  // Warm the worker up while the page is idle, so the first check is instant
+  (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(function () { getDecoder(); });
 
   var scanTimer = 0, scanToken = 0;
   var scanSoon = function (data) {
@@ -283,32 +325,36 @@
       return;
     }
     setCheck("scan", "wait", "Checking…");
-    scanTimer = setTimeout(function () { scan(data, token); }, 350);
+    // Wait for a pause in typing (longer on phones, where typing is slower)
+    scanTimer = setTimeout(function () { scan(data, token); }, coarse ? 650 : 350);
   };
 
   var scan = function (data, token) {
-    var px = 600;
-    loadJsQR().then(function () {
+    var px = 420;   // enough for the reader: ≥ 4 px per module up to version 20
+    var decode;
+    getDecoder().then(function (fn) {
+      decode = fn;
+      if (token !== scanToken) return;   // undefined = skip (stale), null = not readable
       return new QRCodeStyling(options(px, "canvas", data)).getRawData("png");
     }).then(function (blob) {
-      return createImageBitmap(blob);
+      if (blob && token === scanToken) return createImageBitmap(blob);
     }).then(function (bmp) {
-      if (token !== scanToken) return;
-      var pad = 40;   // extra white border, like the paper around a printed code
+      if (!bmp || token !== scanToken) return;
+      var pad = 28;   // extra white border, like the paper around a printed code
       var c = document.createElement("canvas");
       c.width = c.height = px + pad * 2;
       var ctx = c.getContext("2d", { willReadFrequently: true });
       ctx.fillStyle = "#fff";
       ctx.fillRect(0, 0, c.width, c.height);
       ctx.drawImage(bmp, pad, pad, px, px);
-      var img = ctx.getImageData(0, 0, c.width, c.height);
-      var res = window.jsQR(img.data, c.width, c.height, { inversionAttempts: "attemptBoth" });
-      if (token !== scanToken) return;
-      if (!res) {
+      return decode(ctx.getImageData(0, 0, c.width, c.height));
+    }).then(function (got) {
+      if (got === undefined || token !== scanToken) return;
+      if (!got) {
         setCheck("scan", "bad", "Couldn't read it<small>Try more contrast, a smaller logo or a standard quiet zone. Phones are often better than this test, but check with yours before printing.</small>");
         return;
       }
-      var want = utf8(data), got = res.binaryData || [];
+      var want = utf8(data);
       var same = want.length === got.length;
       for (var i = 0; same && i < want.length; i++) if (want[i] !== got[i]) same = false;
       if (same) setCheck("scan", "ok", "Reads back exactly as typed<small>Still, scan it with your phone once before you print.</small>");

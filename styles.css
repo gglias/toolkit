@@ -1525,3 +1525,17 @@ html.sb-mini .sb-item:has(.sb-badge:not(.is-soon)) .sb-ic::after {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* ================= Phones & touch: lighter effects =================
+   Huge blurs, a full-screen mask and backdrop blur are costly on phone GPUs
+   and made scrolling stutter. On touch they add nothing (no mouse to follow). */
+@media (hover: none), (max-width: 860px) {
+  body::before { -webkit-mask-image: none; mask-image: none; }
+  .glow span { filter: none; }
+  .export-bar,
+  .toolbar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgb(30 30 33 / 0.96);
+  }
+}
