@@ -1539,3 +1539,15 @@ html.sb-mini .sb-item:has(.sb-badge:not(.is-soon)) .sb-ic::after {
     background: rgb(30 30 33 / 0.96);
   }
 }
+
+/* iOS zooms into any field under 16px when you tap it (and the page then
+   scrolls sideways). On touch screens every field is 16px. */
+@media (hover: none), (max-width: 860px) {
+  .input,
+  .select,
+  .textarea,
+  .xb-select,
+  .color .input,
+  .checks .v .select { font-size: 16px; }
+  .xb-select { font-family: var(--f-body); letter-spacing: -0.02em; padding: 0 18px 0 7px; background-position: right 5px center; }
+}
