@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Colour palette &amp; contrast — Toolkit</title>
-  <meta name="description" content="Free colour palette generator: from your brand colours to tonal palettes and Material 3 light and dark themes, contrast-checked, exported for Flutter, SwiftUI, Android, Compose, CSS and design tokens. Runs in your browser." />
-  <meta property="og:title" content="Colour palette & contrast — Toolkit by Greg Glias" />
-  <meta property="og:description" content="Brand colours in, light and dark themes out, checked for contrast and ready for Flutter, iOS, Android and the web." />
+  <title>Color palette &amp; contrast — Toolkit</title>
+  <meta name="description" content="Free color palette generator: from your brand colors to tonal palettes and Material 3 light and dark themes, contrast-checked, exported for Flutter, SwiftUI, Android, Compose, CSS and design tokens. Runs in your browser." />
+  <meta property="og:title" content="Color palette & contrast — Toolkit by Greg Glias" />
+  <meta property="og:description" content="Brand colors in, light and dark themes out, checked for contrast and ready for Flutter, iOS, Android and the web." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#09090a" />
   <script>try { if (localStorage.getItem("tk-sidebar") === "mini") document.documentElement.classList.add("sb-mini"); } catch (e) {}</script>
@@ -14,46 +14,46 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=11" />
+  <link rel="stylesheet" href="../styles.css?v=12" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
-  <a class="skip" href="#colours-panel">Skip to the generator</a>
+  <a class="skip" href="#colors-panel">Skip to the generator</a>
   <div class="glow" aria-hidden="true"><span class="glow-a"></span><span class="glow-b"></span></div>
 
   <div class="layout">
     <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
-    <script src="../tools.js?v=5"></script>
+    <script src="../tools.js?v=6"></script>
 
     <div class="main">
     <header class="main-top">
       <button type="button" class="menu-btn" data-sb-open aria-controls="sidebar" aria-expanded="false" aria-label="Open the tools menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Toolkit</a><span aria-hidden="true">/</span><b>Colour palette</b></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Toolkit</a><span aria-hidden="true">/</span><b>Color palette</b></nav>
       <a class="top-link" href="https://gglias.github.io/" target="_blank" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
     </header>
 
     <div class="tool-hero">
       <div>
-        <span class="eyebrow">Tool 03 · Colours</span>
-        <h1>Colour palette &amp; contrast</h1>
-        <p>Your brand colours in. Tonal palettes and Material 3 light and dark themes out, every text pair checked for contrast, ready for Flutter, SwiftUI, Android, Compose and the web.</p>
+        <span class="eyebrow">Tool 03 · Colors</span>
+        <h1>Color palette &amp; contrast</h1>
+        <p>Your brand colors in. Tonal palettes and Material 3 light and dark themes out, every text pair checked for contrast, ready for Flutter, SwiftUI, Android, Compose and the web.</p>
       </div>
     </div>
 
     <main class="app">
-      <!-- ============ Left: the colours ============ -->
-      <section class="panel surface" id="colours-panel" aria-labelledby="colours-title">
-        <div class="panel-head"><b id="colours-title">Colours</b><span>Brand · Neutral · Error</span></div>
+      <!-- ============ Left: the colors ============ -->
+      <section class="panel surface" id="colors-panel" aria-labelledby="colors-title">
+        <div class="panel-head"><b id="colors-title">Colors</b><span>Brand · Neutral · Error</span></div>
 
         <!-- Each group folds (Primary and Secondary start open); closed, it shows its current value -->
         <details class="sec acc" open>
           <summary class="acc-head"><span>Primary</span><span class="acc-val" data-acc="primary"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <div class="acc-body">
             <div class="color">
-              <label class="swatch" data-swatch="primary"><input type="color" data-color="primary" aria-label="Primary colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="primary" aria-label="Primary colour hex" />
+              <label class="swatch" data-swatch="primary"><input type="color" data-color="primary" aria-label="Primary color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="primary" aria-label="Primary color hex" />
             </div>
-            <p class="hint">Your main brand colour: buttons, links, the active tab.</p>
+            <p class="hint">Your main brand color: buttons, links, the active tab.</p>
           </div>
         </details>
 
@@ -62,8 +62,8 @@
           <div class="acc-body">
             <label class="check"><input type="checkbox" data-auto="secondary" />Auto, from the primary</label>
             <div class="color" data-color-row="secondary">
-              <label class="swatch" data-swatch="secondary"><input type="color" data-color="secondary" aria-label="Secondary colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="secondary" aria-label="Secondary colour hex" />
+              <label class="swatch" data-swatch="secondary"><input type="color" data-color="secondary" aria-label="Secondary color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="secondary" aria-label="Secondary color hex" />
             </div>
             <p class="hint">Quieter accents: chips, selected tabs, tonal buttons.</p>
           </div>
@@ -74,8 +74,8 @@
           <div class="acc-body">
             <label class="check"><input type="checkbox" data-auto="tertiary" />Auto, a contrasting hue</label>
             <div class="color" data-color-row="tertiary">
-              <label class="swatch" data-swatch="tertiary"><input type="color" data-color="tertiary" aria-label="Tertiary colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="tertiary" aria-label="Tertiary colour hex" />
+              <label class="swatch" data-swatch="tertiary"><input type="color" data-color="tertiary" aria-label="Tertiary color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="tertiary" aria-label="Tertiary color hex" />
             </div>
             <p class="hint">A third voice for highlights and badges.</p>
           </div>
@@ -90,8 +90,8 @@
               <button type="button" data-value="custom" aria-pressed="false">Custom</button>
             </div>
             <div class="color" data-color-row="neutral">
-              <label class="swatch" data-swatch="neutral"><input type="color" data-color="neutral" aria-label="Neutral colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="neutral" aria-label="Neutral colour hex" />
+              <label class="swatch" data-swatch="neutral"><input type="color" data-color="neutral" aria-label="Neutral color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="neutral" aria-label="Neutral color hex" />
             </div>
             <p class="hint">Backgrounds, text, borders. <b>Tinted</b> greys carry a hint of the primary, so the app feels like one piece.</p>
           </div>
@@ -101,8 +101,8 @@
           <summary class="acc-head"><span>Error</span><span class="acc-val" data-acc="error"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <div class="acc-body">
             <div class="color">
-              <label class="swatch" data-swatch="error"><input type="color" data-color="error" aria-label="Error colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="error" aria-label="Error colour hex" />
+              <label class="swatch" data-swatch="error"><input type="color" data-color="error" aria-label="Error color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="error" aria-label="Error color hex" />
             </div>
             <p class="hint">Errors and destructive actions. Material's red works for most brands.</p>
           </div>
@@ -122,7 +122,7 @@
         <div class="checks surface" aria-live="polite">
           <ul>
             <li data-check="contrast" data-state="wait"><span class="ic" data-ic></span><span class="k">Contrast</span><span class="v" data-v>—</span></li>
-            <li data-check="exact" data-state="wait"><span class="ic" data-ic></span><span class="k">Your colours</span><span class="v" data-v>—</span></li>
+            <li data-check="exact" data-state="wait"><span class="ic" data-ic></span><span class="k">Your colors</span><span class="v" data-v>—</span></li>
             <li data-check="dark" data-state="info"><span class="ic" data-ic></span><span class="k">Dark mode</span><span class="v" data-v>—</span></li>
           </ul>
         </div>
@@ -154,14 +154,14 @@
         <details class="sec acc" open>
           <summary class="acc-head"><span>Rules</span><span class="acc-val" data-acc="rules"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <div class="acc-body">
-            <label class="check"><input type="checkbox" data-opt="exact" />Use my exact colours in light mode</label>
-            <p class="hint" style="margin-bottom:12px">Off: Material 3 picks the tone of each colour that reads best, like the Material Theme Builder.</p>
+            <label class="check"><input type="checkbox" data-opt="exact" />Use my exact colors in light mode</label>
+            <p class="hint" style="margin-bottom:12px">Off: Material 3 picks the tone of each color that reads best, like the Material Theme Builder.</p>
             <div class="field-row"><span>Contrast target for text</span></div>
             <div class="seg" data-target role="group" aria-label="Contrast target" style="margin-top:6px">
               <button type="button" data-value="AA" aria-pressed="false">AA · 4.5:1</button>
               <button type="button" data-value="AAA" aria-pressed="false">AAA · 7:1</button>
             </div>
-            <p class="hint">Colours that miss the target are nudged lighter or darker until they pass. Your exact colours are never changed.</p>
+            <p class="hint">Colors that miss the target are nudged lighter or darker until they pass. Your exact colors are never changed.</p>
           </div>
         </details>
 
@@ -207,6 +207,6 @@
 
   <script src="../site.js?v=3"></script>
   <script src="../zip.js?v=1"></script>
-  <script src="colors.js?v=1"></script>
+  <script src="colors.js?v=2"></script>
 </body>
 </html>

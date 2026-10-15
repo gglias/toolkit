@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Wider weight ranges than the other pages: the Letters option draws with them -->
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400..800&family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=11" />
+  <link rel="stylesheet" href="../styles.css?v=12" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
@@ -24,7 +24,7 @@
 
   <div class="layout">
     <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
-    <script src="../tools.js?v=5"></script>
+    <script src="../tools.js?v=6"></script>
 
     <div class="main">
     <header class="main-top">
@@ -82,10 +82,10 @@
               <button type="button" data-value="600" aria-pressed="false">Semibold</button>
               <button type="button" data-value="800" aria-pressed="false">Bold</button>
             </div>
-            <div class="field-row"><span>Colour</span></div>
+            <div class="field-row"><span>Color</span></div>
             <div class="color" style="margin-top:6px">
-              <label class="swatch" data-swatch="fg"><input type="color" data-color="fg" aria-label="Letter colour" /></label>
-              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="fg" aria-label="Letter colour hex" />
+              <label class="swatch" data-swatch="fg"><input type="color" data-color="fg" aria-label="Letter color" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="fg" aria-label="Letter color hex" />
             </div>
             <p class="hint">Letters export as PNG and ICO. For an <code>icon.svg</code> as well, start from an SVG logo.</p>
           </div>
@@ -176,8 +176,8 @@
             <button type="button" data-value="circle" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10"/></svg>Circle</button>
           </div>
           <div class="color">
-            <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background colour" /></label>
-            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background colour hex" />
+            <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background color" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background color hex" />
           </div>
           <label class="check"><input type="checkbox" data-in-design="transparent" />Transparent (logo only)</label>
           <label class="check" data-dark-row hidden><input type="checkbox" data-in-design="darkInvert" />Invert on dark tabs (SVG)</label>
@@ -200,10 +200,10 @@
           <div class="acc-body">
           <label class="field"><span>Site name</span><input class="input" type="text" maxlength="60" autocomplete="off" placeholder="My site" data-in="name" /></label>
           <label class="field"><span>Short name (under the phone icon)</span><input class="input" type="text" maxlength="14" autocomplete="off" placeholder="My site" data-in="short" /></label>
-          <div class="field-row"><span>Theme colour (phone browser bar)</span></div>
+          <div class="field-row"><span>Theme color (phone browser bar)</span></div>
           <div class="color" data-theme-color style="margin-top:6px">
-            <label class="swatch" data-swatch="theme"><input type="color" data-color="theme" aria-label="Theme colour" /></label>
-            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="theme" aria-label="Theme colour hex" />
+            <label class="swatch" data-swatch="theme"><input type="color" data-color="theme" aria-label="Theme color" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="theme" aria-label="Theme color hex" />
           </div>
           <label class="check"><input type="checkbox" data-in-design="themeSame" />Same as the background</label>
           <label class="field"><span>Folder on your site</span><input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="/" data-in="path" /></label>
@@ -247,6 +247,6 @@
 
   <script src="../site.js?v=3"></script>
   <script src="../zip.js?v=1"></script>
-  <script src="favicon.js?v=4"></script>
+  <script src="favicon.js?v=5"></script>
 </body>
 </html>

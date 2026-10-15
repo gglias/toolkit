@@ -1,5 +1,5 @@
-/* Toolkit — Colour palette & contrast.
-   Brand colours → tonal palettes (OKLCH) → Material 3 roles for light and dark,
+/* Toolkit — Color palette & contrast.
+   Brand colors → tonal palettes (OKLCH) → Material 3 roles for light and dark,
    every text pair checked (WCAG 2.2) and nudged until it passes → code for
    Flutter, SwiftUI + Xcode assets, Android XML, Compose, CSS and DTCG tokens.
    Everything is computed in the page. */
@@ -29,7 +29,7 @@
     try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* ignore */ }
   };
 
-  // ---------- Colour maths ----------
+  // ---------- Color maths ----------
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
   var hexOk = function (v) { return /^#[0-9a-f]{6}$/i.test(v); };
   var rgb = function (h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); };
@@ -88,7 +88,7 @@
     return Math.round((Math.abs(s) < 0.1 ? 0 : s > 0 ? s - 0.027 : s + 0.027) * 100);
   };
 
-  // A colour of family f at a given tone (hue and chroma kept, chroma clipped to sRGB)
+  // A color of family f at a given tone (hue and chroma kept, chroma clipped to sRGB)
   var tone = function (f, T) {
     if (T >= 100) return "#ffffff";
     if (T <= 0) return "#000000";
@@ -122,7 +122,7 @@
     return f;
   };
 
-  // 11 steps; the user's own colour replaces the step closest to it
+  // 11 steps; the user's own color replaces the step closest to it
   var palette = function (f) {
     var list = STEP_TONES.map(function (T, i) { return { step: STEPS[i], hex: tone(f, T) }; });
     if (f.hex) {
@@ -174,10 +174,10 @@
 
       ACCENTS.forEach(function (a) {
         var f = F[a], on = "on" + cap(a);
-        // Material's own red is a default, not one of your colours
+        // Material's own red is a default, not one of your colors
         var yours = f.hex && !(a === "error" && f.hex.toLowerCase() === DEFAULT_ERROR);
         if (L && state.exact && yours) {
-          // your colour stays as it is; its text is white, a near-black of the same hue
+          // your color stays as it is; its text is white, a near-black of the same hue
           // or pure black: the first that passes, else the one that reads best
           lock(a, f.hex.toLowerCase());
           var picks = ["#ffffff", tone(f, 10), "#000000"];
@@ -209,7 +209,7 @@
       set("onInverseSurface", N, L ? 95 : 20);
       set("inversePrimary", F.primary, L ? 80 : 40);
 
-      // Nudge every derived colour that misses its target: the text away from its
+      // Nudge every derived color that misses its target: the text away from its
       // background first; if the text is already white or black, the background
       var push = function (role, away, other, min) {
         var dir = toneOf(away.hex) > 50 ? -1 : 1;
@@ -224,7 +224,7 @@
         var fg = r[p[0]], bg = r[p[1]], min = need(p[2]);
         if (wcag(fg.hex, bg.hex) >= min) return;
         if (!fg.locked && fg.f) push(fg, bg, bg, min);
-        // only a button colour may move; surfaces are shared by every other pair
+        // only a button color may move; surfaces are shared by every other pair
         if (wcag(fg.hex, bg.hex) < min && ACCENTS.indexOf(p[1]) > -1 && !bg.locked && bg.f) push(bg, fg, fg, min);
       });
       // what still fails, after every nudge
@@ -258,8 +258,8 @@
 
   X.flutter = function () {
     var o = [];
-    o.push("// " + P() + " colours · " + HEAD);
-    o.push("// Material 3 colour schemes for light and dark. Every text pair passes WCAG " + state.target + ".");
+    o.push("// " + P() + " colors · " + HEAD);
+    o.push("// Material 3 color schemes for light and dark. Every text pair passes WCAG " + state.target + ".");
     o.push("//");
     o.push("//   MaterialApp(");
     o.push("//     theme: ThemeData(colorScheme: " + P() + "Colors.light),");
@@ -292,7 +292,7 @@
   X.swift = function () {
     var o = [];
     o.push("// " + P() + "Color.swift · " + HEAD);
-    o.push("// The colours live in Colors.xcassets, each with a light and a dark version.");
+    o.push("// The colors live in Colors.xcassets, each with a light and a dark version.");
     o.push("// Drag the Colors.xcassets folder into Xcode, add this file, then:");
     o.push("//   Text(\"Hello\").foregroundStyle(" + P() + "Color.onSurface)");
     o.push("import SwiftUI");
@@ -336,7 +336,7 @@
 
   var xml = function (mode, withPalette) {
     var o = ['<?xml version="1.0" encoding="utf-8"?>'];
-    o.push("<!-- " + P() + " colours, " + mode + " theme · " + HEAD + " -->");
+    o.push("<!-- " + P() + " colors, " + mode + " theme · " + HEAD + " -->");
     if (mode === "light") o.push("<!-- Dark versions of the roles: res/values-night/colors.xml -->");
     o.push("<resources>");
     ROLES.forEach(function (role) { o.push('    <color name="' + p() + "_" + snake(role) + '">' + cur[mode][role].hex.toUpperCase() + "</color>"); });
@@ -356,7 +356,7 @@
   X.compose = function () {
     var o = [];
     o.push("// Theme.kt · " + HEAD);
-    o.push("// Material 3 colour schemes for light and dark. Wrap your app in " + P() + "Theme { … }");
+    o.push("// Material 3 color schemes for light and dark. Wrap your app in " + P() + "Theme { … }");
     o.push("package " + pkg());
     o.push("");
     o.push("import androidx.compose.foundation.isSystemInDarkTheme");
@@ -398,7 +398,7 @@
 
   X.css = function () {
     var v = function (role, mode) { return "  --" + p() + "-" + kebab(role) + ": " + cur[mode][role].hex + ";"; };
-    var o = ["/* " + P() + " colours · " + HEAD + " */", ":root {", "  color-scheme: light;"];
+    var o = ["/* " + P() + " colors · " + HEAD + " */", ":root {", "  color-scheme: light;"];
     FAMS.forEach(function (k) { cur.pal[k].forEach(function (s) { o.push("  --" + p() + "-" + kebab(k) + "-" + s.step + ": " + s.hex + ";"); }); });
     o.push("");
     ROLES.forEach(function (r) { o.push(v(r, "light")); });
@@ -421,7 +421,7 @@
 
   X.tokens = function () {
     var t = function (h) { return { $type: "color", $value: h }; };
-    var doc = { $description: P() + " colours · " + HEAD + " · Design Tokens (W3C DTCG) format", palette: {}, light: {}, dark: {} };
+    var doc = { $description: P() + " colors · " + HEAD + " · Design Tokens (W3C DTCG) format", palette: {}, light: {}, dark: {} };
     FAMS.forEach(function (k) { doc.palette[k] = {}; cur.pal[k].forEach(function (s) { doc.palette[k][s.step] = t(s.hex); }); });
     ["light", "dark"].forEach(function (mode) { ROLES.forEach(function (r) { doc[mode][r] = t(cur[mode][r].hex); }); });
     return JSON.stringify(doc, null, 2) + "\n";
@@ -441,10 +441,10 @@
 
   var readme = function () {
     return [
-      P() + " colours · " + HEAD,
+      P() + " colors · " + HEAD,
       "",
-      "Light and dark Material 3 colour schemes plus tonal palettes (50 lightest, 950 darkest).",
-      "Every text colour passes WCAG " + state.target + " on its background; borders pass 3:1.",
+      "Light and dark Material 3 color schemes plus tonal palettes (50 lightest, 950 darkest).",
+      "Every text color passes WCAG " + state.target + " on its background; borders pass 3:1.",
       "",
       "FLUTTER  " + viewFile("flutter"),
       "  Copy into lib/, then:",
@@ -495,7 +495,7 @@
     var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
     var W = 64, G = 8, LEFT = 140, y = 40, o = [];
     var text = function (x, yy, s, size, weight, fill) { o.push('<text x="' + x + '" y="' + yy + '" font-family="Inter, Arial, sans-serif" font-size="' + size + '" font-weight="' + (weight || 400) + '" fill="' + (fill || "#1b1b1f") + '">' + esc(s) + "</text>"); };
-    text(24, y, P() + " colours", 22, 700);
+    text(24, y, P() + " colors", 22, 700);
     y += 36;
     FAMS.forEach(function (k) {
       text(24, y + 36, FAM_NAME[k], 13, 600);
@@ -590,26 +590,26 @@
     var total = PAIRS.length * 2, fails = cur.issues.length;
     var nudged = 0;
     ["light", "dark"].forEach(function (m) { ROLES.forEach(function (r) { if (cur[m][r].nudged) nudged++; }); });
-    if (!fails) setCheck("contrast", "ok", "All " + total + " pairs pass " + state.target + (nudged ? "<small>" + nudged + " colour" + (nudged > 1 ? "s were" : " was") + " nudged lighter or darker to get there.</small>" : ""));
+    if (!fails) setCheck("contrast", "ok", "All " + total + " pairs pass " + state.target + (nudged ? "<small>" + nudged + " color" + (nudged > 1 ? "s were" : " was") + " nudged lighter or darker to get there.</small>" : ""));
     else setCheck("contrast", "bad", fails + " of " + total + " pairs below " + state.target + "<small>" + cur.issues.map(function (i) { return i.pair[3] + " (" + i.mode + ")"; }).join(", ") + "</small>");
 
-    // Your exact colours: does each one carry text?
-    if (!state.exact) setCheck("exact", "info", "Material 3 tones<small>Your colours set the hue; each role uses the tone that reads best. Turn on <b>Use my exact colours</b> to keep them as they are.</small>");
+    // Your exact colors: does each one carry text?
+    if (!state.exact) setCheck("exact", "info", "Material 3 tones<small>Your colors set the hue; each role uses the tone that reads best. Turn on <b>Use my exact colors</b> to keep them as they are.</small>");
     else {
-      // light-mode problems that involve one of your exact colours
+      // light-mode problems that involve one of your exact colors
       var bad = cur.issues.filter(function (i) { return i.mode === "light" && (cur.light[i.pair[0]].locked || cur.light[i.pair[1]].locked); });
-      if (!bad.length) setCheck("exact", "ok", "Used as they are in light mode<small>Their text colour (white or near-black) passes " + state.target + ".</small>");
+      if (!bad.length) setCheck("exact", "ok", "Used as they are in light mode<small>Their text color (white or near-black) passes " + state.target + ".</small>");
       else {
         var tips = bad.map(function (i) {
           var accent = ACCENTS.filter(function (a) { return i.pair[0] === a || i.pair[1] === a || i.pair[0] === "on" + cap(a); })[0] || "primary";
           var f = cur.fams[accent];
-          // the nearest darker shade of the same colour that carries white text
+          // the nearest darker shade of the same color that carries white text
           var fix = "";
           for (var T = Math.floor(f.t); T >= 0; T--) { var h = tone(f, T); if (wcag("#ffffff", h) >= need("text")) { fix = h; break; } }
           return "<b>" + accent + "</b> " + f.hex.toUpperCase() + " · " + i.pair[3].toLowerCase() + " " + fmt(wcag(cur.light[i.pair[0]].hex, cur.light[i.pair[1]].hex)) + ":1" +
             (fix ? " → " + fix.toUpperCase() + " passes" : "");
         });
-        setCheck("exact", "warn", "Some of your colours don't carry text<small>" + tips.join("<br />") + ". Use the darker shade, or turn off <b>Use my exact colours</b>.</small>");
+        setCheck("exact", "warn", "Some of your colors don't carry text<small>" + tips.join("<br />") + ". Use the darker shade, or turn off <b>Use my exact colors</b>.</small>");
       }
     }
     setCheck("dark", "info", "Generated from the same hues<small>Material 3 tones: lighter accents (tone 80) on near-black surfaces (tone 6).</small>");
@@ -645,7 +645,7 @@
     $("[data-files]").innerHTML = [
       [viewFile("flutter"), "Flutter · light & dark ColorScheme + palettes"],
       [viewFile("swift"), "SwiftUI · " + P() + "Color.primary"],
-      ["ios/Colors.xcassets/", (ROLES.length + FAMS.length * STEPS.length) + " colour sets · roles light & dark"],
+      ["ios/Colors.xcassets/", (ROLES.length + FAMS.length * STEPS.length) + " color sets · roles light & dark"],
       [viewFile("android"), "Android · roles + palettes"],
       [viewFile("night"), "Android · dark roles"],
       [viewFile("compose"), "Compose · " + P() + "Theme { }"],
@@ -739,7 +739,7 @@
     var b = e.target.closest("[data-hex-copy]");
     if (b) copyText(b.getAttribute("data-hex-copy").toUpperCase(), b.getAttribute("data-hex-copy").toUpperCase() + " copied");
   });
-  $('[data-copy="flutter"]').addEventListener("click", function () { copyText(X.flutter(), "Flutter colours copied"); });
+  $('[data-copy="flutter"]').addEventListener("click", function () { copyText(X.flutter(), "Flutter colors copied"); });
   $('[data-copy="figma"]').addEventListener("click", function () { copyText(figmaSvg(), "Copied. Paste it into Figma as vector swatches"); });
 
   $('[data-export="zip"]').addEventListener("click", function () {
@@ -747,7 +747,7 @@
       var blob = window.tkZip(zipFiles());
       var a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = p() + "-colours.zip";
+      a.download = p() + "-colors.zip";
       document.body.appendChild(a);
       a.click();
       a.remove();

@@ -28,7 +28,7 @@
   var GROUPS = [
     { title: "Print & share", items: [{ id: "qr", name: "QR code", href: "qr/" }] },
     { title: "Web", items: [{ id: "favicon", name: "Favicon", href: "favicon/" }] },
-    { title: "Design systems", items: [{ id: "colors", name: "Colour palette", href: "colors/", badge: "New" }] },
+    { title: "Design systems", items: [{ id: "colors", name: "Color palette", href: "colors/", badge: "New" }] },
     { title: "WordPress", items: [{ id: "slugs", name: "Greek → Latin slugs", soon: true }] },
     { title: "CSS", items: [{ id: "clamp", name: "Fluid type", soon: true }] }
   ];

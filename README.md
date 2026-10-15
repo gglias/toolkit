@@ -8,11 +8,11 @@ Everything runs in your browser. Nothing you type or upload is sent anywhere: no
 
 ## Tools
 
-- **QR code generator**: links, text, Wi-Fi, contacts (vCard), email, phone and SMS. Brand colours, dot and corner styles, a logo in the middle, and a built-in scan test that reads the code back. Exports SVG for print, PNG up to 4096 px, or copies a vector you can paste into Figma.
+- **QR code generator**: links, text, Wi-Fi, contacts (vCard), email, phone and SMS. Brand colors, dot and corner styles, a logo in the middle, and a built-in scan test that reads the code back. Exports SVG for print, PNG up to 4096 px, or copies a vector you can paste into Figma.
 
 - **Favicon generator**: from a logo (SVG, PNG, JPG, WebP) or a few letters to `favicon.ico` (16/32/48), `icon.svg` (with an optional invert for dark tabs), the Apple touch icon, Android icons (including maskable) and `manifest.webmanifest`, plus the `<head>` code. Previews in light and dark browser tabs, phone home screens and a search result, with contrast checks. One ZIP, packed in the page.
 
-- **Colour palette & contrast**: brand colours (primary, secondary, tertiary, neutral, error) to tonal palettes 50–950 in OKLCH and Material 3 roles for light and dark. Every text pair is checked against WCAG AA or AAA and derived colours are nudged until they pass (APCA shown for reference). Previews on two phones, light and dark. Exports Flutter (`ColorScheme`), SwiftUI + an Xcode asset catalog with light/dark appearances, Android `colors.xml` (+ `values-night`), Jetpack Compose (`lightColorScheme` / `darkColorScheme`), CSS variables, W3C design tokens, and swatches you can paste into Figma.
+- **Color palette & contrast**: brand colors (primary, secondary, tertiary, neutral, error) to tonal palettes 50–950 in OKLCH and Material 3 roles for light and dark. Every text pair is checked against WCAG AA or AAA and derived colors are nudged until they pass (APCA shown for reference). Previews on two phones, light and dark. Exports Flutter (`ColorScheme`), SwiftUI + an Xcode asset catalog with light/dark appearances, Android `colors.xml` (+ `values-night`), Jetpack Compose (`lightColorScheme` / `darkColorScheme`), CSS variables, W3C design tokens, and swatches you can paste into Figma.
 
 More on the way: Greek → Latin slugs and a fluid type (`clamp()`) calculator.
 

@@ -1,4 +1,4 @@
-/* Toolkit — a tiny ZIP writer shared by the tools (Favicon, Colours).
+/* Toolkit — a tiny ZIP writer shared by the tools (Favicon, Colors).
    Files are "stored" (no compression): PNGs are compressed already and the
    text files are small. window.tkZip([{ name: "dir/file.txt", data: Uint8Array }]) → Blob */
 (function () {

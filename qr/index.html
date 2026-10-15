@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QR code generator — Toolkit</title>
-  <meta name="description" content="Free QR code generator: links, Wi-Fi, contacts, email, SMS. Your colours and logo, a scan check, SVG for print and PNG for web. Runs in your browser — nothing is uploaded." />
+  <meta name="description" content="Free QR code generator: links, Wi-Fi, contacts, email, SMS. Your colors and logo, a scan check, SVG for print and PNG for web. Runs in your browser — nothing is uploaded." />
   <meta property="og:title" content="QR code generator — Toolkit by Greg Glias" />
   <meta property="og:description" content="Static QR codes that never expire. Styled to your brand, checked for scanning, exported as SVG or PNG." />
   <meta property="og:type" content="website" />
@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=11" />
+  <link rel="stylesheet" href="../styles.css?v=12" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
@@ -23,7 +23,7 @@
 
   <div class="layout">
     <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
-    <script src="../tools.js?v=5"></script>
+    <script src="../tools.js?v=6"></script>
 
     <div class="main">
     <header class="main-top">
@@ -185,8 +185,8 @@
           <div class="acc-body">
           <div class="styles" data-dots role="group" aria-label="Dot style"></div>
           <div class="color">
-            <label class="swatch" data-swatch="dotsColor"><input type="color" data-color="dotsColor" aria-label="Dot colour" /></label>
-            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="dotsColor" aria-label="Dot colour hex" />
+            <label class="swatch" data-swatch="dotsColor"><input type="color" data-color="dotsColor" aria-label="Dot color" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="dotsColor" aria-label="Dot color hex" />
           </div>
           </div>
         </details>
@@ -199,10 +199,10 @@
             <button type="button" data-value="square" aria-pressed="false">Square centre</button>
             <button type="button" data-value="dot" aria-pressed="false">Round centre</button>
           </div>
-          <label class="check"><input type="checkbox" data-in-design="cornerSame" />Same colour as the dots</label>
+          <label class="check"><input type="checkbox" data-in-design="cornerSame" />Same color as the dots</label>
           <div class="color" data-corner-color>
-            <label class="swatch" data-swatch="cornerColor"><input type="color" data-color="cornerColor" aria-label="Corner colour" /></label>
-            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="cornerColor" aria-label="Corner colour hex" />
+            <label class="swatch" data-swatch="cornerColor"><input type="color" data-color="cornerColor" aria-label="Corner color" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="cornerColor" aria-label="Corner color hex" />
           </div>
           </div>
         </details>
@@ -211,8 +211,8 @@
           <summary class="acc-head"><span>Background</span><span class="acc-val" data-acc="bg"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <div class="acc-body">
           <div class="color">
-            <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background colour" /></label>
-            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background colour hex" />
+            <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background color" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background color hex" />
           </div>
           <label class="check"><input type="checkbox" data-in-design="transparent" />Transparent</label>
           </div>
@@ -287,6 +287,6 @@
 
   <script src="../site.js?v=3"></script>
   <script src="../vendor/qr-code-styling.js"></script>
-  <script src="qr.js?v=3"></script>
+  <script src="qr.js?v=4"></script>
 </body>
 </html>

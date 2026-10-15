@@ -360,7 +360,7 @@ a.tool:hover .tool-card { outline-color: var(--select); transform: translateY(-3
 .art-qr svg { width: 100%; height: 100%; display: block; }
 a.tool:hover .art-qr { transform: rotate(0deg) scale(1.04); }
 
-/* Home colours preview: a palette strip and a contrast chip */
+/* Home colors preview: a palette strip and a contrast chip */
 .art-pal { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); width: 80%; height: 44%; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7); transform: rotate(-3deg); transition: transform 0.5s var(--ease); }
 .art-pal span { background: var(--c); }
 .art-pal b { position: absolute; right: 10px; bottom: -14px; display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 12px; border-radius: 10px; background: #4f46e5; color: #fff; font: 600 18px/1 var(--f-body); box-shadow: 0 10px 20px -8px rgb(0 0 0 / 0.6); }
@@ -680,7 +680,7 @@ a.tool:hover .art-fav-icon { transform: rotate(0deg) scale(1.06); }
   border-radius: var(--r2, 0);
 }
 
-/* Colour row: swatch + hex */
+/* Color row: swatch + hex */
 .color {
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
@@ -1232,7 +1232,7 @@ details.acc[open] .acc-val { visibility: hidden; }   /* the controls below say i
   .ff-big { width: min(60cqi, 220px); }
 }
 
-/* ================= Colours: phones, palettes, contrast, code ================= */
+/* ================= Colors: phones, palettes, contrast, code ================= */
 .cl-canvas {
   display: block;
   min-height: 0;

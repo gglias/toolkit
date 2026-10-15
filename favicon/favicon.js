@@ -120,7 +120,7 @@
       ctx.font = fontCss(px);
       m = ctx.measureText(t);
       var fg = design.fg;
-      // the sample "G" must show even when the letter colour matches the background
+      // the sample "G" must show even when the letter color matches the background
       if (isSample() && ratio(lum(rgb(fg)), lum(rgb(design.bg))) < 2) fg = lum(rgb(design.bg)) > 0.4 ? "#141414" : "#ffffff";
       ctx.fillStyle = fg;
       ctx.textBaseline = "alphabetic";
@@ -211,7 +211,7 @@
     });
   };
 
-  // The colour of the image's own background, if its four corners are solid and alike
+  // The color of the image's own background, if its four corners are solid and alike
   var ownBackground = function (s) {
     var cv = document.createElement("canvas");
     cv.width = cv.height = 32;
@@ -286,7 +286,7 @@
       if (s.bgColor && !s.svg) trim(s, s.bgColor);              // SVGs stay whole: they become icon.svg
       src = s;
       steps = {};
-      // A picture with its own background: the shape takes the same colour, so the two blend
+      // A picture with its own background: the shape takes the same color, so the two blend
       if (s.bgColor && (s.bgColor !== design.bg || design.transparent)) {
         design.bg = s.bgColor;
         design.transparent = false;
@@ -357,7 +357,7 @@
       ["icon-192.png", "192 px, Android"],
       ["icon-512.png", "512 px, Android & WordPress"],
       ["icon-mask.png", "512 px, Android adaptive"],
-      ["manifest.webmanifest", "name, icons, colours"],
+      ["manifest.webmanifest", "name, icons, colors"],
       ["how-to-use.txt", "where the files go + this code"]
     ].filter(Boolean);
   };
@@ -412,7 +412,7 @@
     });
   };
 
-  // ZIP writer: ../zip.js (shared with the Colours tool)
+  // ZIP writer: ../zip.js (shared with the Colors tool)
   var zip = window.tkZip;
 
   var manifest = function () {
@@ -549,7 +549,7 @@
     var n = r.toFixed(1) + ":1";
     if (r >= 3) return ["ok", "Stands out · " + n];
     var fix = design.transparent
-      ? (dark && hasSvg() ? "Turn on <b>Invert on dark tabs</b>, or give it a background." : "Give it a background colour.")
+      ? (dark && hasSvg() ? "Turn on <b>Invert on dark tabs</b>, or give it a background." : "Give it a background color.")
       : "Pick a background with more contrast.";
     if (r >= 1.8) return ["warn", "Faint · " + n + "<small>" + fix + "</small>"];
     return ["bad", "Almost invisible · " + n + "<small>" + fix + "</small>"];
@@ -565,8 +565,8 @@
         var own = src.bgColor ? src.bgColor.toUpperCase() : "";
         var note = !own ? ""
           : design.transparent || design.bg !== src.bgColor
-            ? "<small>Your image has its own " + own + " background, so a box of it shows on the " + (design.transparent ? "transparent icon" : "new colour") + ". Set the background back to " + own + ", or use a PNG without a background.</small>"
-            : "<small>Has its own " + own + " background" + (src.trimmed ? ": trimmed to the logo, and the shape uses the same colour." : ", used for the shape too.") + "</small>";
+            ? "<small>Your image has its own " + own + " background, so a box of it shows on the " + (design.transparent ? "transparent icon" : "new color") + ". Set the background back to " + own + ", or use a PNG without a background.</small>"
+            : "<small>Has its own " + own + " background" + (src.trimmed ? ": trimmed to the logo, and the shape uses the same color." : ", used for the shape too.") + "</small>";
         var clash = own && (design.transparent || design.bg !== src.bgColor);
         if (src.svg) setCheck("source", clash ? "warn" : "ok", "SVG · sharp at every size, also exported as icon.svg" + note);
         else {
@@ -599,7 +599,7 @@
     if (val("name").trim()) setCheck("name", "ok", esc(siteName()) + (shortName() !== siteName() ? " · <b>" + esc(shortName()) + "</b> under the icon" : ""));
     else setCheck("name", "warn", "Still “My site”<small>Add your site's name in <b>App</b>: it goes in the manifest and under the phone icon.</small>");
     setCheck("phones", design.transparent ? "info" : "ok", design.transparent
-      ? "Background " + design.bg.toUpperCase() + "<small>Phones don't allow transparency, so iPhone and Android icons get your background colour.</small>"
+      ? "Background " + design.bg.toUpperCase() + "<small>Phones don't allow transparency, so iPhone and Android icons get your background color.</small>"
       : "Solid background · ready for iPhone and Android<small>Android crops to a circle, so its icon gets extra padding.</small>");
   };
 

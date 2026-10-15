@@ -219,7 +219,7 @@
   var checks = function (sample) {
     // Contrast
     if (design.transparent) {
-      setCheck("contrast", "warn", "Transparent background<small>Place it on a plain, light surface. Busy photos or dark colours behind it can stop it scanning.</small>");
+      setCheck("contrast", "warn", "Transparent background<small>Place it on a plain, light surface. Busy photos or dark colors behind it can stop it scanning.</small>");
     } else {
       var fg = [design.dotsColor, cornerColor()];
       var worst = Math.min(ratio(fg[0], design.bg), ratio(fg[1], design.bg));
@@ -457,7 +457,7 @@
     schedule();
   });
 
-  // Colours: swatch + hex field stay in step
+  // Colors: swatch + hex field stay in step
   ["dotsColor", "cornerColor", "bg"].forEach(function (key) {
     var picker = $('[data-color="' + key + '"]');
     var hex = $('[data-hex="' + key + '"]');
@@ -577,7 +577,7 @@
     heads();
   };
 
-  // What each folded group is set to (colours are always checked #hex)
+  // What each folded group is set to (colors are always checked #hex)
   var label = function (list, v) { var f = list.filter(function (x) { return x[0] === v; })[0]; return f ? f[1] : v; };
   var chip = function (c, round) { return '<i class="' + (round ? "is-circle" : "") + '" style="--chip:' + c + '"></i>'; };
   var heads = function () {
