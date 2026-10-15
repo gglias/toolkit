@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" data-tool="colors" data-base="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Colour palette &amp; contrast — Toolkit</title>
+  <meta name="description" content="Free colour palette generator: from your brand colours to tonal palettes and Material 3 light and dark themes, contrast-checked, exported for Flutter, SwiftUI, Android, Compose, CSS and design tokens. Runs in your browser." />
+  <meta property="og:title" content="Colour palette & contrast — Toolkit by Greg Glias" />
+  <meta property="og:description" content="Brand colours in, light and dark themes out, checked for contrast and ready for Flutter, iOS, Android and the web." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#09090a" />
+  <script>try { if (localStorage.getItem("tk-sidebar") === "mini") document.documentElement.classList.add("sb-mini"); } catch (e) {}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=11" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+</head>
+<body>
+  <a class="skip" href="#colours-panel">Skip to the generator</a>
+  <div class="glow" aria-hidden="true"><span class="glow-a"></span><span class="glow-b"></span></div>
+
+  <div class="layout">
+    <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
+    <script src="../tools.js?v=5"></script>
+
+    <div class="main">
+    <header class="main-top">
+      <button type="button" class="menu-btn" data-sb-open aria-controls="sidebar" aria-expanded="false" aria-label="Open the tools menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Toolkit</a><span aria-hidden="true">/</span><b>Colour palette</b></nav>
+      <a class="top-link" href="https://gglias.github.io/" target="_blank" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="tool-hero">
+      <div>
+        <span class="eyebrow">Tool 03 · Colours</span>
+        <h1>Colour palette &amp; contrast</h1>
+        <p>Your brand colours in. Tonal palettes and Material 3 light and dark themes out, every text pair checked for contrast, ready for Flutter, SwiftUI, Android, Compose and the web.</p>
+      </div>
+    </div>
+
+    <main class="app">
+      <!-- ============ Left: the colours ============ -->
+      <section class="panel surface" id="colours-panel" aria-labelledby="colours-title">
+        <div class="panel-head"><b id="colours-title">Colours</b><span>Brand · Neutral · Error</span></div>
+
+        <!-- Each group folds (Primary and Secondary start open); closed, it shows its current value -->
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Primary</span><span class="acc-val" data-acc="primary"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="color">
+              <label class="swatch" data-swatch="primary"><input type="color" data-color="primary" aria-label="Primary colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="primary" aria-label="Primary colour hex" />
+            </div>
+            <p class="hint">Your main brand colour: buttons, links, the active tab.</p>
+          </div>
+        </details>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Secondary</span><span class="acc-val" data-acc="secondary"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <label class="check"><input type="checkbox" data-auto="secondary" />Auto, from the primary</label>
+            <div class="color" data-color-row="secondary">
+              <label class="swatch" data-swatch="secondary"><input type="color" data-color="secondary" aria-label="Secondary colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="secondary" aria-label="Secondary colour hex" />
+            </div>
+            <p class="hint">Quieter accents: chips, selected tabs, tonal buttons.</p>
+          </div>
+        </details>
+
+        <details class="sec acc">
+          <summary class="acc-head"><span>Tertiary</span><span class="acc-val" data-acc="tertiary"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <label class="check"><input type="checkbox" data-auto="tertiary" />Auto, a contrasting hue</label>
+            <div class="color" data-color-row="tertiary">
+              <label class="swatch" data-swatch="tertiary"><input type="color" data-color="tertiary" aria-label="Tertiary colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="tertiary" aria-label="Tertiary colour hex" />
+            </div>
+            <p class="hint">A third voice for highlights and badges.</p>
+          </div>
+        </details>
+
+        <details class="sec acc">
+          <summary class="acc-head"><span>Neutral</span><span class="acc-val" data-acc="neutral"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="seg" data-neutral role="group" aria-label="Neutral greys">
+              <button type="button" data-value="tinted" aria-pressed="false">Tinted</button>
+              <button type="button" data-value="grey" aria-pressed="false">Pure grey</button>
+              <button type="button" data-value="custom" aria-pressed="false">Custom</button>
+            </div>
+            <div class="color" data-color-row="neutral">
+              <label class="swatch" data-swatch="neutral"><input type="color" data-color="neutral" aria-label="Neutral colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="neutral" aria-label="Neutral colour hex" />
+            </div>
+            <p class="hint">Backgrounds, text, borders. <b>Tinted</b> greys carry a hint of the primary, so the app feels like one piece.</p>
+          </div>
+        </details>
+
+        <details class="sec acc">
+          <summary class="acc-head"><span>Error</span><span class="acc-val" data-acc="error"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="color">
+              <label class="swatch" data-swatch="error"><input type="color" data-color="error" aria-label="Error colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="error" aria-label="Error colour hex" />
+            </div>
+            <p class="hint">Errors and destructive actions. Material's red works for most brands.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ Centre: preview, checks, palettes, contrast, code ============ -->
+      <section class="stage" aria-label="Preview and checks">
+        <div class="canvas cl-canvas">
+          <span class="canvas-zoom" aria-hidden="true">Preview</span>
+          <div class="cl-phones">
+            <figure class="ff"><figcaption class="ff-name">Light</figcaption><div data-phone="light"></div></figure>
+            <figure class="ff"><figcaption class="ff-name">Dark</figcaption><div data-phone="dark"></div></figure>
+          </div>
+        </div>
+
+        <div class="checks surface" aria-live="polite">
+          <ul>
+            <li data-check="contrast" data-state="wait"><span class="ic" data-ic></span><span class="k">Contrast</span><span class="v" data-v>—</span></li>
+            <li data-check="exact" data-state="wait"><span class="ic" data-ic></span><span class="k">Your colours</span><span class="v" data-v>—</span></li>
+            <li data-check="dark" data-state="info"><span class="ic" data-ic></span><span class="k">Dark mode</span><span class="v" data-v>—</span></li>
+          </ul>
+        </div>
+
+        <div class="cl-box surface">
+          <div class="cl-box-head"><b>Palettes</b><span>50 lightest · 950 darkest · click a swatch to copy</span></div>
+          <div class="ramps" data-ramps></div>
+        </div>
+
+        <div class="cl-box surface">
+          <div class="cl-box-head"><b>Contrast</b><span data-target-note>WCAG AA · text 4.5:1 · borders 3:1</span></div>
+          <div class="ctable-wrap"><table class="ctable" data-ctable></table></div>
+        </div>
+
+        <div class="cl-box surface">
+          <div class="cl-box-head"><b>Code</b><span data-code-file></span></div>
+          <div class="code-tabs" role="tablist" aria-label="Platform" data-code-tabs></div>
+          <div class="code-view">
+            <button type="button" class="code-copy" data-copy-code data-cursor="Copy">Copy</button>
+            <pre class="code" data-code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Right: rules, names, files ============ -->
+      <section class="panel surface" aria-labelledby="rules-title">
+        <div class="panel-head"><b id="rules-title">Theme</b><span>Rules · Names · Files</span></div>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Rules</span><span class="acc-val" data-acc="rules"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <label class="check"><input type="checkbox" data-opt="exact" />Use my exact colours in light mode</label>
+            <p class="hint" style="margin-bottom:12px">Off: Material 3 picks the tone of each colour that reads best, like the Material Theme Builder.</p>
+            <div class="field-row"><span>Contrast target for text</span></div>
+            <div class="seg" data-target role="group" aria-label="Contrast target" style="margin-top:6px">
+              <button type="button" data-value="AA" aria-pressed="false">AA · 4.5:1</button>
+              <button type="button" data-value="AAA" aria-pressed="false">AAA · 7:1</button>
+            </div>
+            <p class="hint">Colours that miss the target are nudged lighter or darker until they pass. Your exact colours are never changed.</p>
+          </div>
+        </details>
+
+        <details class="sec acc">
+          <summary class="acc-head"><span>Names</span><span class="acc-val" data-acc="names"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <label class="field"><span>Prefix</span><input class="input" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="App" data-in="prefix" /></label>
+            <p class="hint" style="margin-bottom:12px">One name, each platform's style: <code data-name-demo>AppColors · appPrimary · app_primary · --app-primary</code></p>
+            <label class="field"><span>Kotlin package (Compose)</span><input class="input" type="text" maxlength="80" autocomplete="off" spellcheck="false" placeholder="com.example.app.ui.theme" data-in="pkg" /></label>
+          </div>
+        </details>
+
+        <details class="sec acc">
+          <summary class="acc-head"><span>In the ZIP</span><span class="acc-val" data-acc="files"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <ul class="files" data-files></ul>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <!-- Export: the same floating bar as the other tools -->
+    <div class="export-bar" role="toolbar" aria-label="Export">
+      <button type="button" class="xb-btn is-primary" data-export="zip" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>ZIP</b><span class="tb-tip" aria-hidden="true">Flutter, iOS, Android, Compose, CSS, tokens</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <button type="button" class="xb-btn" data-copy="flutter" data-cursor="Copy" aria-label="Copy the Flutter file"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3 4.5 12.5l3 3L20 3zM14 11.5 9.5 16l4.5 4.5H20L15.5 16 20 11.5z"/></svg><b>Copy Flutter</b><span class="tb-tip" aria-hidden="true">app_colors.dart · light &amp; dark ColorScheme</span></button>
+      <button type="button" class="xb-btn" data-copy="figma" data-cursor="Copy" aria-label="Copy for Figma"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5H8.5a3.5 3.5 0 0 0 0 7H12zM12 1.5h3.5a3.5 3.5 0 0 1 0 7H12zM12 8.5H8.5a3.5 3.5 0 0 0 0 7H12zM8.5 15.5H12V19a3.5 3.5 0 1 1-3.5-3.5z"/><circle cx="15.5" cy="12" r="3.5"/></svg><b>Copy for Figma</b><span class="tb-tip" aria-hidden="true">Palettes &amp; roles · paste as vectors</span></button>
+    </div>
+
+    <footer class="foot">
+      <span>Made by <a href="https://gglias.github.io/" target="_blank" rel="noopener">Greg Glias</a>. Tones in OKLCH, roles after Material 3, contrast by WCAG 2.2 (APCA shown for reference).</span>
+      <span>© <span data-year>2026</span></span>
+    </footer>
+    </div>
+  </div>
+  <div class="sb-backdrop" aria-hidden="true"></div>
+
+  <div class="fig-cursor" aria-hidden="true" data-fig-cursor>
+    <svg viewBox="0 0 24 24"><path d="M4 3.5 19.5 10.3 12.6 12.6 10.3 19.5z"/></svg>
+    <span class="fig-cursor-label" data-fig-label>You</span>
+  </div>
+
+
+  <script src="../site.js?v=3"></script>
+  <script src="../zip.js?v=1"></script>
+  <script src="colors.js?v=1"></script>
+</body>
+</html>
