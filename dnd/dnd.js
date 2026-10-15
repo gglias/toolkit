@@ -31,7 +31,7 @@
     en: { kicker: "Do not disturb", until: "until", left: "left", done: "Available", doneSub: "Come say hi 👋", free: "Free", more: "+15 min", imfree: "I'm free", stop: "Stop" }
   };
   var THEMES = [
-    ["ember", "Ember"], ["onair", "On air"], ["night", "Night"], ["calm", "Calm"], ["paper", "Paper"]
+    ["paper", "Paper"], ["night", "Night"], ["onair", "On air"], ["calm", "Calm"], ["ember", "Ember"]
   ];
 
   var FIGMA = '<svg class="figma-mark" viewBox="0 0 38 57" role="img" aria-label="Figma"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>';
@@ -49,7 +49,7 @@
   var state = {
     lang: "en", preset: 0, emoji: "🎧", text: "In focus", sub: "Questions after the timer", done: "",
     mode: "until", until: nextHalfHour(), forMin: 50, chime: true,
-    theme: "ember", clock: true, bar: true
+    theme: "paper", clock: true, bar: true
   };
   try {
     var saved = JSON.parse(localStorage.getItem(STORE) || "null");
@@ -69,7 +69,7 @@
   ["c", "b", "ch"].forEach(function (k, i) { if (fromHash.has(k)) state[["clock", "bar", "chime"][i]] = fromHash.get(k) === "1"; });
   if (!/^\d\d:\d\d$/.test(state.until)) state.until = nextHalfHour();
   if (["until", "for", "none"].indexOf(state.mode) < 0) state.mode = "until";
-  if (!THEMES.some(function (t) { return t[0] === state.theme; })) state.theme = "ember";
+  if (!THEMES.some(function (t) { return t[0] === state.theme; })) state.theme = "paper";
   state.lang = "en";   // English only
 
   var save = function () { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* ignore */ } };
