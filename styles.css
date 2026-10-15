@@ -1467,6 +1467,10 @@ details.acc[open] .acc-val { visibility: hidden; }   /* the controls below say i
 .sign.no-clock .sign-clock { visibility: hidden; }
 .sign-main { display: grid; align-content: center; justify-items: start; gap: 2.4cqmin; min-height: 0; }
 .sign-emoji { font-size: 11cqmin; line-height: 1; }
+.figma-mark { display: block; width: auto; height: 1em; }
+/* On the sign it sits on a dark tile (like the Figma app icon), so every color shows on every theme */
+.sign-emoji .figma-mark { box-sizing: content-box; height: 0.62em; padding: 0.19em 0.26em; border-radius: 0.22em; background: #1e1e1e; }
+.dnd-presets .figma-mark { height: 15px; }
 .sign-text {
   margin: 0;
   font: 700 calc(15cqmin * var(--fit, 1))/0.95 var(--f-display);

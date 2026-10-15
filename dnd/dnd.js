@@ -19,7 +19,7 @@
       ["🍰", "Do not disturb", "Unless there's cake"],
       ["🔴", "Recording", "Silence, please"],
       ["☕", "Coffee break", "Back soon. Probably."],
-      ["🖌️", "In Figma", "Auto layout is fighting back"],
+      ["[figma]", "In Figma", "Auto layout is fighting back"],
       ["📱", "Flutter mode", "Hot reload in progress"],
       ["🖥️", "Frontend", "Centering a div. Pray for me."],
       ["🗄️", "Backend", "Talking to the database. It isn't listening."],
@@ -35,12 +35,12 @@
       ["🍰", "Μην ενοχλείτε", "Εκτός αν φέρνετε γλυκό"],
       ["🔴", "Ηχογράφηση", "Ησυχία, παρακαλώ"],
       ["☕", "Διάλειμμα για καφέ", "Επιστρέφω σύντομα. Μάλλον."],
-      ["🖌️", "Στο Figma", "Το auto layout με πολεμάει"],
-      ["📱", "Flutter mode", "Hot reload σε εξέλιξη"],
-      ["🖥️", "Frontend", "Κεντράρω ένα div. Προσευχηθείτε."],
-      ["🗄️", "Backend", "Μιλάω με τη βάση. Δεν απαντάει."],
-      ["🚬", "Τσιγάρο", "Πίσω σε 5 λεπτά"],
-      ["🚽", "Τουαλέτα", "Με κάλεσε η φύση"]
+      ["[figma]", "In Figma", "Auto layout is fighting back"],
+      ["📱", "Flutter mode", "Hot reload in progress"],
+      ["🖥️", "Frontend", "Centering a div. Pray for me."],
+      ["🗄️", "Backend", "Talking to the database. It isn't listening."],
+      ["🚬", "Smoke break", "Back in 5 minutes"],
+      ["🚽", "Bathroom break", "Nature called. I answered."]
     ]
   };
   var WORDS = {
@@ -50,6 +50,11 @@
   var THEMES = [
     ["ember", "Ember"], ["onair", "On air"], ["night", "Night"], ["calm", "Calm"], ["paper", "Paper"]
   ];
+
+  var FIGMA = '<svg class="figma-mark" viewBox="0 0 38 57" role="img" aria-label="Figma"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>';
+  var isFigma = function (e) { return String(e || "").trim().toLowerCase() === "[figma]"; };
+  // The emoji slot: plain text, or the Figma mark for "[figma]"
+  var putEmoji = function (el, e) { if (isFigma(e)) el.innerHTML = FIGMA; else el.textContent = e; };
 
   var nextHalfHour = function () {
     var d = new Date(Date.now() + 60 * 60000);
@@ -126,7 +131,7 @@
     s.el.classList.toggle("no-bar", !state.bar || end === null || done);
     s.k.textContent = done ? W().free : W().kicker;
     s.clock.textContent = hhmm(new Date(now));
-    s.emoji.textContent = done ? "✅" : state.emoji;
+    putEmoji(s.emoji, done ? "✅" : state.emoji);
     s.emoji.hidden = !(done || state.emoji);
     s.text.textContent = done ? (state.done || W().done) : (state.text || W().kicker);
     s.sub.textContent = done ? W().doneSub : state.sub;
@@ -270,7 +275,7 @@
   };
   var renderPresets = function () {
     $("[data-presets]").innerHTML = PRESETS[state.lang].map(function (p, i) {
-      return '<button type="button" data-preset="' + i + '" aria-pressed="' + (i === state.preset) + '"><span>' + p[0] + "</span>" + p[1] + "</button>";
+      return '<button type="button" data-preset="' + i + '" aria-pressed="' + (i === state.preset) + '"><span>' + (isFigma(p[0]) ? FIGMA : p[0]) + "</span>" + p[1] + "</button>";
     }).join("");
   };
   $("[data-themes]").innerHTML = THEMES.map(function (t) {
@@ -294,7 +299,7 @@
     $('[data-opt="clock"]').checked = !!state.clock;
     $('[data-opt="bar"]').checked = !!state.bar;
     $('[data-acc="preset"]').textContent = state.preset > -1 ? PRESETS[state.lang][state.preset][1] : "Custom";
-    $('[data-acc="words"]').textContent = (state.emoji ? state.emoji + " " : "") + (state.text || W().kicker);
+    $('[data-acc="words"]').textContent = (state.emoji && !isFigma(state.emoji) ? state.emoji + " " : "") + (state.text || W().kicker);
     $('[data-acc="timer"]').textContent = state.mode === "none" ? "No timer" : state.mode === "for" ? state.forMin + " min" : "Until " + state.until;
     $('[data-acc="look"]').textContent = THEMES.filter(function (t) { return t[0] === state.theme; })[0][1];
     drawPreview();
