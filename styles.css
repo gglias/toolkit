@@ -489,6 +489,10 @@ a.tool:hover .art-fav-icon { transform: rotate(0deg) scale(1.06); }
   line-height: 1.4;
   transition: border-color 0.15s, background 0.15s;
 }
+/* Native pickers (time, color) draw their icons for a dark page */
+.input, .select, .textarea { color-scheme: dark; }
+.input::-webkit-calendar-picker-indicator { opacity: 0.75; cursor: var(--cursor-hand); }
+.input::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 .input:hover, .select:hover, .textarea:hover { border-color: var(--line-2); }
 .input:focus, .select:focus, .textarea:focus {
   outline: none;
