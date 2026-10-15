@@ -137,8 +137,14 @@
     var ctx = cv.getContext("2d");
     ctx.clearRect(0, 0, size, size);
     var side = contentSide(size);
+    ctx.save();
     if (kind === "icon") {
-      if (!design.transparent) { shapePath(ctx, size, design.shape); ctx.fillStyle = design.bg; ctx.fill(); }
+      if (!design.transparent) {
+        shapePath(ctx, size, design.shape);
+        ctx.fillStyle = design.bg;
+        ctx.fill();
+        ctx.clip();   // a picture with its own background must not poke out of the circle
+      }
     } else {
       ctx.fillStyle = design.bg;
       ctx.fillRect(0, 0, size, size);
@@ -146,6 +152,7 @@
       if (kind === "mask") side = Math.min(side, size * MASK_SAFE);
     }
     drawContent(ctx, size, side, opts.invert);
+    ctx.restore();
     return cv;
   };
 
@@ -201,6 +208,55 @@
     });
   };
 
+  // The colour of the image's own background, if its four corners are solid and alike
+  var ownBackground = function (s) {
+    var cv = document.createElement("canvas");
+    cv.width = cv.height = 32;
+    var ctx = cv.getContext("2d");
+    ctx.drawImage(s.img, 0, 0, 32, 32);
+    var d = ctx.getImageData(0, 0, 32, 32).data;
+    var px = [[1, 1], [30, 1], [1, 30], [30, 30]].map(function (p) { var i = (p[1] * 32 + p[0]) * 4; return [d[i], d[i + 1], d[i + 2], d[i + 3]]; });
+    if (px.some(function (c) { return c[3] < 250; })) return null;
+    for (var k = 0; k < 3; k++) {
+      var ch = px.map(function (c) { return c[k]; });
+      if (Math.max.apply(null, ch) - Math.min.apply(null, ch) > 24) return null;
+    }
+    return "#" + [0, 1, 2].map(function (k) {
+      var avg = Math.round(px.reduce(function (sum, c) { return sum + c[k]; }, 0) / 4);
+      return ("0" + avg.toString(16)).slice(-2);
+    }).join("");
+  };
+
+  // Picture with a solid background: keep only the logo (+ a hair of margin), so the
+  // padding is measured from the logo itself and the shape supplies the background
+  var trim = function (s, bg) {
+    var k = Math.min(1, 256 / Math.max(s.w, s.h));
+    var aw = Math.max(1, Math.round(s.w * k)), ah = Math.max(1, Math.round(s.h * k));
+    var cv = document.createElement("canvas");
+    cv.width = aw; cv.height = ah;
+    var ctx = cv.getContext("2d");
+    ctx.drawImage(s.img, 0, 0, aw, ah);
+    var d = ctx.getImageData(0, 0, aw, ah).data, B = rgb(bg), x0 = aw, y0 = ah, x1 = -1, y1 = -1;
+    for (var y = 0; y < ah; y++) for (var x = 0; x < aw; x++) {
+      var i = (y * aw + x) * 4;
+      if (Math.abs(d[i] - B[0]) + Math.abs(d[i + 1] - B[1]) + Math.abs(d[i + 2] - B[2]) > 48) {
+        if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+      }
+    }
+    if (x1 < 0) return;                                        // nothing but background
+    var m = 0.02 * Math.max(x1 - x0, y1 - y0);
+    var sx = Math.max(0, (x0 - m) / k), sy = Math.max(0, (y0 - m) / k);
+    var sw = Math.min(s.w, (x1 + 1 + m) / k) - sx, sh = Math.min(s.h, (y1 + 1 + m) / k) - sy;
+    if (sw * sh > 0.9 * s.w * s.h) return;                     // already tight
+    var out = document.createElement("canvas");
+    out.width = Math.round(sw); out.height = Math.round(sh);
+    out.getContext("2d").drawImage(s.img, sx, sy, sw, sh, 0, 0, out.width, out.height);
+    s.img = out;
+    s.w = out.width;
+    s.h = out.height;
+    s.trimmed = true;
+  };
+
   var readFile = function (file) {
     if (!file) return;
     if (!/^image\/(png|jpeg|svg\+xml|webp)$/.test(file.type)) {
@@ -222,8 +278,18 @@
     p.then(function (s) {
       if (src && src.url) URL.revokeObjectURL(src.url);
       s.name = file.name;
+      s.bgColor = ownBackground(s);
+      s.fullSize = s.w + " × " + s.h + " px";
+      if (s.bgColor && !s.svg) trim(s, s.bgColor);              // SVGs stay whole: they become icon.svg
       src = s;
       steps = {};
+      // A picture with its own background: the shape takes the same colour, so the two blend
+      if (s.bgColor && (s.bgColor !== design.bg || design.transparent)) {
+        design.bg = s.bgColor;
+        design.transparent = false;
+        save();
+        window.tkToast("Background set to " + s.bgColor.toUpperCase() + ", from your image");
+      }
       var thumb = $("[data-thumb]");
       thumb.innerHTML = "";
       var tc = document.createElement("canvas");
@@ -302,14 +368,17 @@
     nest.setAttribute("y", r2((S - dh) / 2));
     nest.setAttribute("width", r2(dw));
     nest.setAttribute("height", r2(dh));
-    var bg = "";
+    var bg = "", clip = "";
     if (!design.transparent) {
-      bg = design.shape === "circle" ? '<circle cx="256" cy="256" r="256" fill="' + design.bg + '"/>'
-        : '<rect width="512" height="512"' + (design.shape === "rounded" ? ' rx="' + r2(S * RADIUS) + '"' : "") + ' fill="' + design.bg + '"/>';
+      var shape = design.shape === "circle" ? '<circle cx="256" cy="256" r="256"'
+        : '<rect width="512" height="512"' + (design.shape === "rounded" ? ' rx="' + r2(S * RADIUS) + '"' : "");
+      bg = shape + ' fill="' + design.bg + '"/>';
+      // Same as the PNGs: the logo is cut to the shape
+      if (design.shape !== "square") { bg = "<defs><clipPath id=\"shape\">" + shape + "/></clipPath></defs>" + bg; clip = ' clip-path="url(#shape)"'; }
     }
     var style = invertDark() ? "<style>@media (prefers-color-scheme: dark) { .logo { filter: invert(1) hue-rotate(180deg); } }</style>" : "";
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">' + style + bg +
-      '<g class="logo">' + new XMLSerializer().serializeToString(nest) + "</g></svg>\n";
+      '<g class="logo"' + clip + ">" + new XMLSerializer().serializeToString(nest) + "</g></svg>\n";
   };
 
   var pngBytes = function (cv) {
@@ -518,8 +587,11 @@
     var dw = ar >= 1 ? 64 : 64 * ar, dh = ar >= 1 ? 64 / ar : 64;
     ctx.drawImage(src.img, (64 - dw) / 2, (64 - dh) / 2, dw, dh);
     var d = ctx.getImageData(0, 0, 64, 64).data, x0 = 64, y0 = 64, x1 = -1, y1 = -1;
+    var B = src.bgColor ? rgb(src.bgColor) : null;             // solid background: look for the logo, not for pixels
     for (var y = 0; y < 64; y++) for (var x = 0; x < 64; x++) {
-      if (d[(y * 64 + x) * 4 + 3] > 24) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+      var i = (y * 64 + x) * 4;
+      var ink = B ? d[i + 3] > 24 && Math.abs(d[i] - B[0]) + Math.abs(d[i + 1] - B[1]) + Math.abs(d[i + 2] - B[2]) > 48 : d[i + 3] > 24;
+      if (ink) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
     }
     return x1 < 0 ? 0 : Math.max(x1 - x0 + 1, y1 - y0 + 1) / 64;
   };
@@ -540,12 +612,23 @@
     } else {
       // Source
       if (design.mode === "text") setCheck("source", "ok", "Letters · drawn sharp at every size");
-      else if (src.svg) setCheck("source", "ok", "SVG · sharp at every size, also exported as icon.svg");
       else {
-        var m = Math.min(src.w, src.h), sz = src.w + " × " + src.h + " px";
-        if (m >= 512) setCheck("source", "ok", sz + " · big enough for every size");
-        else if (m >= 180) setCheck("source", "warn", sz + "<small>The 512 px icons are enlarged and may look soft. Use 512 px or an SVG.</small>");
-        else setCheck("source", "bad", sz + "<small>Too small: phone icons will look blurry. Use 512 px or an SVG.</small>");
+        var own = src.bgColor ? src.bgColor.toUpperCase() : "";
+        var note = !own ? ""
+          : design.transparent || design.bg !== src.bgColor
+            ? "<small>Your image has its own " + own + " background, so a box of it shows on the " + (design.transparent ? "transparent icon" : "new colour") + ". Set the background back to " + own + ", or use a PNG without a background.</small>"
+            : "<small>Has its own " + own + " background" + (src.trimmed ? ": trimmed to the logo, and the shape uses the same colour." : ", used for the shape too.") + "</small>";
+        var clash = own && (design.transparent || design.bg !== src.bgColor);
+        if (src.svg) setCheck("source", clash ? "warn" : "ok", "SVG · sharp at every size, also exported as icon.svg" + note);
+        else {
+          // the logo's own pixels count, not the empty margin that was trimmed off
+          // compared with the biggest size the logo is really drawn at (inside the 512 px icons)
+          var m = Math.min(src.w, src.h), need = Math.round(Math.max(contentSide(512), 512 * MASK_SAFE));
+          var sz = src.fullSize + (src.trimmed ? " · logo " + src.w + " × " + src.h : "");
+          if (m >= need) setCheck("source", clash ? "warn" : "ok", sz + " · big enough for every size" + note);
+          else if (m >= need / 2) setCheck("source", "warn", sz + "<small>The logo is drawn up to " + need + " px, so the 512 px icons are enlarged and may look soft. Use a bigger image or an SVG.</small>" + note);
+          else setCheck("source", "bad", sz + "<small>Too small: phone icons will look blurry. Use a bigger image or an SVG.</small>" + note);
+        }
       }
       // Tabs
       var l = tabText(tabContrast(LIGHT_TAB, false), false);
@@ -564,6 +647,8 @@
         else setCheck("small", "ok", "Fills the space well");
       }
     }
+    if (val("name").trim()) setCheck("name", "ok", esc(siteName()) + (shortName() !== siteName() ? " · <b>" + esc(shortName()) + "</b> under the icon" : ""));
+    else setCheck("name", "warn", "Still “My site”<small>Add your site's name in <b>App</b>: it goes in the manifest and under the phone icon.</small>");
     setCheck("phones", design.transparent ? "info" : "ok", design.transparent
       ? "Background " + design.bg.toUpperCase() + "<small>Phones don't allow transparency, so iPhone and Android icons get your background colour.</small>"
       : "Solid background · ready for iPhone and Android<small>Android crops to a circle, so its icon gets extra padding.</small>");
