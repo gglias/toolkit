@@ -165,9 +165,15 @@
           </div>
         </details>
 
-        <details class="sec acc">
+        <details class="sec acc" open>
           <summary class="acc-head"><span>Names</span><span class="acc-val" data-acc="names"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <div class="acc-body">
+            <div class="field-row"><span>Role names</span></div>
+            <div class="seg" data-naming role="group" aria-label="Role names" style="margin-top:6px">
+              <button type="button" data-value="m3" aria-pressed="false">Material 3</button>
+              <button type="button" data-value="simple" aria-pressed="false">Simple</button>
+            </div>
+            <p class="hint" style="margin-bottom:12px" data-naming-hint></p>
             <label class="field"><span>Prefix</span><input class="input" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="App" data-in="prefix" /></label>
             <p class="hint" style="margin-bottom:12px">One name, each platform's style: <code data-name-demo>AppColors · appPrimary · app_primary · --app-primary</code></p>
             <label class="field"><span>Kotlin package (Compose)</span><input class="input" type="text" maxlength="80" autocomplete="off" spellcheck="false" placeholder="com.example.app.ui.theme" data-in="pkg" /></label>
@@ -207,6 +213,6 @@
 
   <script src="../site.js?v=3"></script>
   <script src="../zip.js?v=1"></script>
-  <script src="colors.js?v=2"></script>
+  <script src="colors.js?v=3"></script>
 </body>
 </html>

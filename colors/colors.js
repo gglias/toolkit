@@ -19,6 +19,7 @@
     error: DEFAULT_ERROR,
     exact: true, target: "AA",
     prefix: "App", pkg: "com.example.app.ui.theme",
+    naming: "m3",
     view: "flutter"
   };
   try {
@@ -162,6 +163,43 @@
   ];
   var need = function (kind) { return kind === "ui" ? 3 : state.target === "AAA" ? 7 : 4.5; };
 
+  // ---------- Role names: Material 3, or simple bg / text / border / icon ----------
+  // Each simple name points to the Material 3 role that holds its color.
+  var SIMPLE = [
+    ["bg/primary", "surface"], ["bg/secondary", "surfaceContainerLow"], ["bg/tertiary", "surfaceContainer"],
+    ["bg/raised", "surfaceContainerHigh"], ["bg/highest", "surfaceContainerHighest"], ["bg/lowest", "surfaceContainerLowest"],
+    ["bg/dim", "surfaceDim"], ["bg/bright", "surfaceBright"], ["bg/inverse", "inverseSurface"],
+    ["bg/brand", "primary"], ["bg/brand-subtle", "primaryContainer"],
+    ["bg/accent", "secondary"], ["bg/accent-subtle", "secondaryContainer"],
+    ["bg/highlight", "tertiary"], ["bg/highlight-subtle", "tertiaryContainer"],
+    ["bg/error", "error"], ["bg/error-subtle", "errorContainer"],
+    ["text/primary", "onSurface"], ["text/secondary", "onSurfaceVariant"], ["text/inverse", "onInverseSurface"],
+    ["text/brand", "primary"], ["text/on-brand", "onPrimary"], ["text/on-brand-subtle", "onPrimaryContainer"],
+    ["text/on-accent", "onSecondary"], ["text/on-accent-subtle", "onSecondaryContainer"],
+    ["text/on-highlight", "onTertiary"], ["text/on-highlight-subtle", "onTertiaryContainer"],
+    ["text/error", "error"], ["text/on-error", "onError"], ["text/on-error-subtle", "onErrorContainer"],
+    ["text/link-inverse", "inversePrimary"],
+    ["border/default", "outline"], ["border/subtle", "outlineVariant"], ["border/brand", "primary"], ["border/error", "error"],
+    ["icon/primary", "onSurface"], ["icon/secondary", "onSurfaceVariant"], ["icon/brand", "primary"],
+    ["icon/on-brand", "onPrimary"], ["icon/inverse", "onInverseSurface"], ["icon/error", "error"],
+    ["overlay/scrim", "scrim"], ["overlay/shadow", "shadow"]
+  ];
+  var m3Group = function (r) {
+    if (/^(inverse|onInverse)/.test(r)) return "inverse";
+    if (/^outline/.test(r)) return "outline";
+    if (r === "shadow" || r === "scrim") return "effects";
+    var m = r.replace(/^on/, "").replace(/Container$/, "").toLowerCase();
+    return ACCENTS.indexOf(m) > -1 ? m : "surface";
+  };
+  var camelPath = function (path) {
+    return path.join("-").split("-").map(function (w, i) { return i ? cap(w) : w; }).join("");
+  };
+  // [{ path: ["bg", "primary"], role: "surface", id: "bgPrimary" }]
+  var tokens = function () {
+    if (state.naming === "simple") return SIMPLE.map(function (s) { var path = s[0].split("/"); return { path: path, role: s[1], id: camelPath(path) }; });
+    return ROLES.map(function (r) { return { path: [m3Group(r), r], role: r, id: r }; });
+  };
+
   var build = function () {
     var F = families();
     var out = { fams: F, pal: {}, light: {}, dark: {}, issues: [] };
@@ -169,7 +207,8 @@
 
     ["light", "dark"].forEach(function (mode) {
       var L = mode === "light", r = out[mode];
-      var set = function (k, f, T) { r[k] = { f: f, t: T, hex: tone(f, T) }; };
+      // famKey is kept so Figma aliases can point to "<family>/tones/<T>"
+      var set = function (k, famKey, T) { r[k] = { fam: famKey, f: F[famKey], t: T, hex: tone(F[famKey], T) }; };
       var lock = function (k, h) { r[k] = { hex: h, locked: true }; };
 
       ACCENTS.forEach(function (a) {
@@ -185,29 +224,28 @@
             picks.slice().sort(function (x, y) { return wcag(y, f.hex) - wcag(x, f.hex); })[0];
           lock(on, pick);
         } else {
-          set(a, f, L ? 40 : 80);
-          set(on, f, L ? 100 : 20);
+          set(a, a, L ? 40 : 80);
+          set(on, a, L ? 100 : 20);
         }
-        set(a + "Container", f, L ? 90 : 30);
-        set(on + "Container", f, L ? 10 : 90);
+        set(a + "Container", a, L ? 90 : 30);
+        set(on + "Container", a, L ? 10 : 90);
       });
 
-      var N = F.neutral, NV = F.neutralVariant;
-      set("surface", N, L ? 98 : 6);
-      set("onSurface", N, L ? 10 : 90);
-      set("surfaceDim", N, L ? 87 : 6);
-      set("surfaceBright", N, L ? 98 : 24);
-      set("surfaceContainerLowest", N, L ? 100 : 4);
-      set("surfaceContainerLow", N, L ? 96 : 10);
-      set("surfaceContainer", N, L ? 94 : 12);
-      set("surfaceContainerHigh", N, L ? 92 : 17);
-      set("surfaceContainerHighest", N, L ? 90 : 22);
-      set("onSurfaceVariant", NV, L ? 30 : 80);
-      set("outline", NV, L ? 50 : 60);
-      set("outlineVariant", NV, L ? 80 : 30);
-      set("inverseSurface", N, L ? 20 : 90);
-      set("onInverseSurface", N, L ? 95 : 20);
-      set("inversePrimary", F.primary, L ? 80 : 40);
+      set("surface", "neutral", L ? 98 : 6);
+      set("onSurface", "neutral", L ? 10 : 90);
+      set("surfaceDim", "neutral", L ? 87 : 6);
+      set("surfaceBright", "neutral", L ? 98 : 24);
+      set("surfaceContainerLowest", "neutral", L ? 100 : 4);
+      set("surfaceContainerLow", "neutral", L ? 96 : 10);
+      set("surfaceContainer", "neutral", L ? 94 : 12);
+      set("surfaceContainerHigh", "neutral", L ? 92 : 17);
+      set("surfaceContainerHighest", "neutral", L ? 90 : 22);
+      set("onSurfaceVariant", "neutralVariant", L ? 30 : 80);
+      set("outline", "neutralVariant", L ? 50 : 60);
+      set("outlineVariant", "neutralVariant", L ? 80 : 30);
+      set("inverseSurface", "neutral", L ? 20 : 90);
+      set("onInverseSurface", "neutral", L ? 95 : 20);
+      set("inversePrimary", "primary", L ? 80 : 40);
 
       // Nudge every derived color that misses its target: the text away from its
       // background first; if the text is already white or black, the background
@@ -286,6 +324,14 @@
       o.push("  );");
     });
     o.push("}");
+    if (state.naming === "simple") {
+      // ColorScheme keeps Material's names; the simple ones are getters on top
+      o.push("");
+      o.push("/// The same colors by simple names: Theme.of(context).colorScheme.bgPrimary");
+      o.push("extension " + P() + "ColorNames on ColorScheme {");
+      tokens().forEach(function (t) { o.push("  Color get " + t.id + " => " + t.role + ";"); });
+      o.push("}");
+    }
     return o.join("\n") + "\n";
   };
 
@@ -294,11 +340,11 @@
     o.push("// " + P() + "Color.swift · " + HEAD);
     o.push("// The colors live in Colors.xcassets, each with a light and a dark version.");
     o.push("// Drag the Colors.xcassets folder into Xcode, add this file, then:");
-    o.push("//   Text(\"Hello\").foregroundStyle(" + P() + "Color.onSurface)");
+    o.push("//   Text(\"Hello\").foregroundStyle(" + P() + "Color." + tokens().filter(function (t) { return t.role === "onSurface"; })[0].id + ")");
     o.push("import SwiftUI");
     o.push("");
     o.push("enum " + P() + "Color {");
-    ROLES.forEach(function (role) { o.push("    static let " + role + " = Color(\"" + p() + cap(role) + "\")"); });
+    tokens().forEach(function (t) { o.push("    static let " + t.id + " = Color(\"" + p() + cap(t.id) + "\")"); });
     o.push("");
     o.push("    /// Tonal palettes: 50 is the lightest, 950 the darkest.");
     o.push("    enum Palette {");
@@ -322,7 +368,7 @@
   // All the files of the asset catalog, as [path, text]
   var xcassets = function () {
     var base = "ios/Colors.xcassets/", files = [[base + "Contents.json", INFO]];
-    ROLES.forEach(function (role) { files.push([base + p() + cap(role) + ".colorset/Contents.json", colorset(cur.light[role].hex, cur.dark[role].hex)]); });
+    tokens().forEach(function (t) { files.push([base + p() + cap(t.id) + ".colorset/Contents.json", colorset(cur.light[t.role].hex, cur.dark[t.role].hex)]); });
     files.push([base + "Palette/Contents.json", INFO]);
     FAMS.forEach(function (k) { cur.pal[k].forEach(function (s) { files.push([base + "Palette/" + p() + cap(k) + s.step + ".colorset/Contents.json", colorset(s.hex)]); }); });
     return files;
@@ -339,7 +385,7 @@
     o.push("<!-- " + P() + " colors, " + mode + " theme · " + HEAD + " -->");
     if (mode === "light") o.push("<!-- Dark versions of the roles: res/values-night/colors.xml -->");
     o.push("<resources>");
-    ROLES.forEach(function (role) { o.push('    <color name="' + p() + "_" + snake(role) + '">' + cur[mode][role].hex.toUpperCase() + "</color>"); });
+    tokens().forEach(function (t) { o.push('    <color name="' + p() + "_" + snake(t.id) + '">' + cur[mode][t.role].hex.toUpperCase() + "</color>"); });
     if (withPalette) {
       o.push("");
       o.push("    <!-- Tonal palettes: 50 lightest, 950 darkest -->");
@@ -360,6 +406,7 @@
     o.push("package " + pkg());
     o.push("");
     o.push("import androidx.compose.foundation.isSystemInDarkTheme");
+    if (state.naming === "simple") o.push("import androidx.compose.material3.ColorScheme");
     o.push("import androidx.compose.material3.MaterialTheme");
     o.push("import androidx.compose.material3.darkColorScheme");
     o.push("import androidx.compose.material3.lightColorScheme");
@@ -393,17 +440,25 @@
     o.push("        content = content,");
     o.push("    )");
     o.push("}");
+    if (state.naming === "simple") {
+      // ColorScheme keeps Material's names; the simple ones are properties on top
+      o.push("");
+      o.push("/** The same colors by simple names: MaterialTheme.colorScheme.bgPrimary */");
+      tokens().forEach(function (t) {
+        o.push("val ColorScheme." + t.id + ": Color get() = " + (t.role === "shadow" ? "Color.Black" : COMPOSE[t.role] || t.role));
+      });
+    }
     return o.join("\n") + "\n";
   };
 
   X.css = function () {
-    var v = function (role, mode) { return "  --" + p() + "-" + kebab(role) + ": " + cur[mode][role].hex + ";"; };
+    var v = function (t, mode) { return "  --" + p() + "-" + kebab(t.id) + ": " + cur[mode][t.role].hex + ";"; };
     var o = ["/* " + P() + " colors · " + HEAD + " */", ":root {", "  color-scheme: light;"];
     FAMS.forEach(function (k) { cur.pal[k].forEach(function (s) { o.push("  --" + p() + "-" + kebab(k) + "-" + s.step + ": " + s.hex + ";"); }); });
     o.push("");
-    ROLES.forEach(function (r) { o.push(v(r, "light")); });
+    tokens().forEach(function (t) { o.push(v(t, "light")); });
     o.push("}");
-    var dark = ROLES.map(function (r) { return "  " + v(r, "dark"); });
+    var dark = tokens().map(function (t) { return "  " + v(t, "dark"); });
     o.push("");
     o.push("/* Dark: follows the system, unless the page says data-theme=\"light\" */");
     o.push("@media (prefers-color-scheme: dark) {");
@@ -414,17 +469,95 @@
     o.push("}");
     o.push('[data-theme="dark"] {');
     o.push("  color-scheme: dark;");
-    ROLES.forEach(function (r) { o.push(v(r, "dark")); });
+    tokens().forEach(function (t) { o.push(v(t, "dark")); });
     o.push("}");
     return o.join("\n") + "\n";
+  };
+
+  // Sets a value deep inside an object: put(doc, ["bg", "primary"], x)
+  var put = function (obj, path, value) {
+    path.slice(0, -1).forEach(function (k) { obj = obj[k] = obj[k] || {}; });
+    obj[path[path.length - 1]] = value;
   };
 
   X.tokens = function () {
     var t = function (h) { return { $type: "color", $value: h }; };
     var doc = { $description: P() + " colors · " + HEAD + " · Design Tokens (W3C DTCG) format", palette: {}, light: {}, dark: {} };
     FAMS.forEach(function (k) { doc.palette[k] = {}; cur.pal[k].forEach(function (s) { doc.palette[k][s.step] = t(s.hex); }); });
-    ["light", "dark"].forEach(function (mode) { ROLES.forEach(function (r) { doc[mode][r] = t(cur[mode][r].hex); }); });
+    ["light", "dark"].forEach(function (mode) { tokens().forEach(function (x) { put(doc[mode], x.path, t(cur[mode][x.role].hex)); }); });
     return JSON.stringify(doc, null, 2) + "\n";
+  };
+
+  // ---------- Figma variables ----------
+  // Primitives = the 50–950 palettes + the exact tones the roles use (family/tones/40),
+  // so every role can be an alias and still keep the contrast checked here.
+  var primitives = function () {
+    var list = [], seen = {};
+    var add = function (name, h) { if (!seen[name]) { seen[name] = h; list.push({ name: name, hex: h }); } };
+    FAMS.forEach(function (k) {
+      cur.pal[k].forEach(function (s) { add(k + "/" + s.step, s.hex); });
+      var used = {};
+      ["light", "dark"].forEach(function (m) { ROLES.forEach(function (r) { var x = cur[m][r]; if (x.fam === k) used[x.t] = x.hex; }); });
+      Object.keys(used).map(Number).sort(function (a, b) { return b - a; }).forEach(function (T) { add(k + "/tones/" + T, used[T]); });
+    });
+    add("base/white", "#ffffff");
+    add("base/black", "#000000");
+    return list;
+  };
+  var aliasOf = function (prims, mode, role) {
+    var x = cur[mode][role];
+    if (x.fam) return x.fam + "/tones/" + x.t;
+    var h = x.hex.toLowerCase();
+    if (h === "#ffffff") return "base/white";
+    if (h === "#000000") return "base/black";
+    var hit = prims.filter(function (pr) { return pr.hex.toLowerCase() === h; })[0];   // your exact colors live in the palettes
+    return hit ? hit.name : null;
+  };
+  var COLLECTIONS = function () { return { prim: P() + " Primitives", colors: P() + " Colors" }; };
+
+  // For the TokenFlow plugin: two collections, modes, aliases, a hex fallback for each
+  X.figma = function () {
+    var prims = primitives(), C = COLLECTIONS();
+    var value = function (mode, role) {
+      var a = aliasOf(prims, mode, role), h = cur[mode][role].hex;
+      return a ? { alias: a, collection: C.prim, hex: h } : h;
+    };
+    return JSON.stringify({
+      format: "tokenflow-variables",
+      version: 1,
+      generator: HEAD,
+      naming: state.naming === "simple" ? "simple" : "material3",
+      collections: [
+        { name: C.prim, modes: ["Value"], variables: prims.map(function (pr) { return { name: pr.name, type: "COLOR", values: { Value: pr.hex } }; }) },
+        {
+          name: C.colors, modes: ["Light", "Dark"],
+          variables: tokens().map(function (t) {
+            return { name: t.path.join("/"), type: "COLOR", description: state.naming === "simple" ? "Material 3: " + t.role : "", values: { Light: value("light", t.role), Dark: value("dark", t.role) } };
+          })
+        }
+      ]
+    }, null, 2) + "\n";
+  };
+
+  // For Figma's own import (Variables → Import): DTCG files, one per collection and mode
+  var dtcgColor = function (h) {
+    var c = rgb(h);
+    return { $type: "color", $value: { colorSpace: "srgb", components: c.map(function (v) { return Math.round(v / 255 * 10000) / 10000; }), hex: h.toUpperCase() } };
+  };
+  var figmaNative = function () {
+    var prims = primitives(), files = [];
+    var doc = {};
+    prims.forEach(function (pr) { put(doc, pr.name.split("/"), dtcgColor(pr.hex)); });
+    files.push(["figma/" + P() + " Primitives.tokens.json", JSON.stringify(doc, null, 2) + "\n"]);
+    ["light", "dark"].forEach(function (mode) {
+      var d = {};
+      tokens().forEach(function (t) {
+        var a = aliasOf(prims, mode, t.role);
+        put(d, t.path, a ? { $type: "color", $value: "{" + a.split("/").join(".") + "}" } : dtcgColor(cur[mode][t.role].hex));
+      });
+      files.push(["figma/" + P() + " Colors." + cap(mode) + ".tokens.json", JSON.stringify(d, null, 2) + "\n"]);
+    });
+    return files;
   };
 
   var VIEWS = [
@@ -435,7 +568,8 @@
     ["night", "Android dark", function () { return "android/res/values-night/colors.xml"; }],
     ["compose", "Compose", function () { return "android/compose/Theme.kt"; }],
     ["css", "CSS", function () { return "web/colors.css"; }],
-    ["tokens", "Tokens", function () { return "tokens/tokens.json"; }]
+    ["tokens", "Tokens", function () { return "tokens/tokens.json"; }],
+    ["figma", "Figma variables", function () { return "figma/tokenflow.json"; }]
   ];
   var viewFile = function (id) { return VIEWS.filter(function (v) { return v[0] === id; })[0][2](); };
 
@@ -468,8 +602,13 @@
       "DESIGN TOKENS  tokens/tokens.json",
       "  W3C DTCG format, for Style Dictionary, Tokens Studio and other token tools.",
       "",
-      "FIGMA",
-      "  On the page, \"Copy for Figma\" pastes the palettes and roles as vector swatches.",
+      "FIGMA VARIABLES  figma/",
+      "  With the TokenFlow plugin (Figma Community): Import → choose figma/tokenflow.json.",
+      "  It creates two collections, \"" + COLLECTIONS().prim + "\" and \"" + COLLECTIONS().colors + "\" (Light and Dark modes),",
+      "  and every color role is an alias of a primitive. Importing again updates the same variables.",
+      "  If your Figma has native import (Variables → Import): import \"" + P() + " Primitives.tokens.json\" first,",
+      "  then the Light and Dark files as two modes of one collection.",
+      "  \"Copy for Figma\" on the page pastes the palettes and roles as vector swatches; palette.svg is the same.",
       ""
     ].join("\r\n");
   };
@@ -485,12 +624,15 @@
     add(viewFile("compose"), X.compose());
     add(viewFile("css"), X.css());
     add(viewFile("tokens"), X.tokens());
+    add(viewFile("figma"), X.figma());
+    figmaNative().forEach(function (f) { add(f[0], f[1]); });
     add("palette.svg", figmaSvg());
     add("how-to-use.txt", readme());
     return list;
   };
 
   // Palettes + roles as one SVG: Figma pastes it as editable swatches and text
+  var swatchTokens = function () { return tokens().filter(function (t) { return ["shadow", "scrim", "surfaceTint"].indexOf(t.role) < 0; }); };
   var figmaSvg = function () {
     var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
     var W = 64, G = 8, LEFT = 140, y = 40, o = [];
@@ -512,15 +654,14 @@
       var x0 = 24 + col * 420, yy = y;
       text(x0, yy, cap(mode) + " roles", 15, 700);
       yy += 16;
-      ROLES.forEach(function (role, i) {
-        if (role === "shadow" || role === "scrim" || role === "surfaceTint") return;
+      swatchTokens().forEach(function (t, i) {
         var cx = x0 + (i % 2) * 200, cy = yy + Math.floor(i / 2) * 40;
-        o.push('<rect x="' + cx + '" y="' + cy + '" width="28" height="28" rx="6" fill="' + cur[mode][role].hex + '" stroke="#e3e3e8"/>');
-        text(cx + 36, cy + 12, role, 11, 600);
-        text(cx + 36, cy + 25, cur[mode][role].hex.toUpperCase(), 9, 400, "#6b6b74");
+        o.push('<rect x="' + cx + '" y="' + cy + '" width="28" height="28" rx="6" fill="' + cur[mode][t.role].hex + '" stroke="#e3e3e8"/>');
+        text(cx + 36, cy + 12, t.path.join("/"), 11, 600);
+        text(cx + 36, cy + 25, cur[mode][t.role].hex.toUpperCase(), 9, 400, "#6b6b74");
       });
     });
-    var height = y + 16 + Math.ceil(ROLES.length / 2) * 40 + 24;
+    var height = y + 16 + Math.ceil(swatchTokens().length / 2) * 40 + 24;
     var width = Math.max(LEFT + 11 * (W + G) + 16, 24 + 420 + 400);
     return '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + " " + height + '">' +
       '<rect width="' + width + '" height="' + height + '" fill="#ffffff"/>' + o.join("") + "</svg>\n";
@@ -638,19 +779,25 @@
     $('[data-acc="neutral"]').innerHTML = chip(cur.pal.neutral[5].hex) + { tinted: "Tinted", grey: "Pure grey", custom: state.neutral.toUpperCase() }[state.neutralMode];
     $('[data-acc="error"]').innerHTML = chip(state.error) + state.error.toUpperCase();
     $('[data-acc="rules"]').textContent = (state.exact ? "Exact" : "M3 tones") + " · " + state.target;
-    $('[data-acc="names"]').textContent = P() + " · " + pkg().split(".").slice(-2).join(".");
+    $('[data-acc="names"]').textContent = (state.naming === "simple" ? "Simple" : "Material 3") + " · " + P();
+    $("[data-naming-hint]").innerHTML = state.naming === "simple"
+      ? "<b>bg/primary, text/secondary, border/default, icon/brand</b>… for Figma, CSS, iOS and Android. Flutter and Compose keep ColorScheme and add the simple names on top."
+      : "<b>primary, onSurface, surfaceContainer</b>… the names Flutter and Compose use, everywhere.";
     var catalog = xcassets().length;
-    $('[data-acc="files"]').textContent = (9 + catalog) + " files";
-    $("[data-name-demo]").textContent = P() + "Colors · " + p() + "Primary · " + p() + "_primary · --" + p() + "-primary";
+    $('[data-acc="files"]').textContent = (13 + catalog) + " files";
+    var demo = tokens()[0].id;
+    $("[data-name-demo]").textContent = P() + "Color." + demo + " · " + p() + cap(demo) + " · " + p() + "_" + snake(demo) + " · --" + p() + "-" + kebab(demo) + " · " + tokens()[0].path.join("/");
     $("[data-files]").innerHTML = [
       [viewFile("flutter"), "Flutter · light & dark ColorScheme + palettes"],
       [viewFile("swift"), "SwiftUI · " + P() + "Color.primary"],
-      ["ios/Colors.xcassets/", (ROLES.length + FAMS.length * STEPS.length) + " color sets · roles light & dark"],
+      ["ios/Colors.xcassets/", (tokens().length + FAMS.length * STEPS.length) + " color sets · roles light & dark"],
       [viewFile("android"), "Android · roles + palettes"],
       [viewFile("night"), "Android · dark roles"],
       [viewFile("compose"), "Compose · " + P() + "Theme { }"],
       [viewFile("css"), "CSS variables, light & dark"],
       [viewFile("tokens"), "Design tokens (W3C DTCG)"],
+      [viewFile("figma"), "Figma variables · import with TokenFlow"],
+      ["figma/*.tokens.json", "Figma's own import · 3 files"],
       ["palette.svg", "Swatches for Figma or docs"],
       ["how-to-use.txt", "Where each file goes"]
     ].map(function (f) { return "<li><b>" + f[0] + "</b><span>" + f[1] + "</span></li>"; }).join("");
@@ -689,6 +836,7 @@
     $('[data-color-row="neutral"]').hidden = state.neutralMode !== "custom";
     $('[data-opt="exact"]').checked = !!state.exact;
     press($("[data-target]"), state.target);
+    press($("[data-naming]"), state.naming);
     if (document.activeElement !== $('[data-in="prefix"]')) $('[data-in="prefix"]').value = state.prefix;
     if (document.activeElement !== $('[data-in="pkg"]')) $('[data-in="pkg"]').value = state.pkg;
   };
@@ -716,6 +864,10 @@
   $("[data-target]").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-value]");
     if (b) { state.target = b.getAttribute("data-value"); changed(); }
+  });
+  $("[data-naming]").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-value]");
+    if (b) { state.naming = b.getAttribute("data-value"); changed(); }
   });
   $('[data-opt="exact"]').addEventListener("change", function (e) { state.exact = e.target.checked; changed(); });
   ["prefix", "pkg"].forEach(function (k) {
