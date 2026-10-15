@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en" data-tool="favicon" data-base="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Favicon generator — Toolkit</title>
+  <meta name="description" content="Free favicon generator: from a logo or a few letters to favicon.ico, SVG, Apple touch icon, Android icons and the web manifest, with the code for your head. Runs in your browser — nothing is uploaded." />
+  <meta property="og:title" content="Favicon generator — Toolkit by Greg Glias" />
+  <meta property="og:description" content="Every favicon size from one logo, previewed in real browser tabs and home screens, downloaded as one ZIP." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#09090a" />
+  <script>try { if (localStorage.getItem("tk-sidebar") === "mini") document.documentElement.classList.add("sb-mini"); } catch (e) {}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Wider weight ranges than the other pages: the Letters option draws with them -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400..800&family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=8" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+</head>
+<body>
+  <a class="skip" href="#source-panel">Skip to the generator</a>
+  <div class="glow" aria-hidden="true"><span class="glow-a"></span><span class="glow-b"></span></div>
+
+  <div class="layout">
+    <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
+    <script src="../tools.js?v=4"></script>
+
+    <div class="main">
+    <header class="main-top">
+      <button type="button" class="menu-btn" data-sb-open aria-controls="sidebar" aria-expanded="false" aria-label="Open the tools menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Toolkit</a><span aria-hidden="true">/</span><b>Favicon</b></nav>
+      <a class="top-link" href="https://gglias.github.io/" target="_blank" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="tool-hero">
+      <div>
+        <span class="eyebrow">Tool 02 · Favicon</span>
+        <h1>Favicon generator</h1>
+        <p>One logo in, every icon a site needs out: favicon.ico, SVG, Apple and Android icons and the manifest. Check it in real tabs and home screens, then download one ZIP.</p>
+      </div>
+    </div>
+
+    <main class="app">
+      <!-- ============ Left: the source ============ -->
+      <section class="panel surface" id="source-panel" aria-labelledby="source-title">
+        <div class="panel-head"><b id="source-title">Source</b><span data-mode-name>Logo</span></div>
+
+        <div class="sec">
+          <div class="seg" data-mode role="group" aria-label="Start from">
+            <button type="button" data-value="image" aria-pressed="true">Logo</button>
+            <button type="button" data-value="text" aria-pressed="false">Letters</button>
+          </div>
+
+          <!-- Logo -->
+          <div data-fields="image">
+            <div class="drop" data-drop>
+              <span class="drop-thumb" data-thumb><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5V5M7.5 9.5 12 5l4.5 4.5M5 15v3a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18v-3"/></svg></span>
+              <span class="drop-text"><span data-file-name>Add your logo</span><small>SVG, PNG, JPG or WebP · stays on your device</small></span>
+              <input type="file" accept="image/svg+xml,image/png,image/jpeg,image/webp" data-file aria-label="Add your logo" />
+              <button type="button" class="drop-remove" data-file-remove hidden>Remove</button>
+            </div>
+            <p class="hint">A <b>square SVG</b> works best: it stays sharp and becomes your <code>icon.svg</code> too. For PNG, use 512 px or bigger.</p>
+            <p class="hint">Use the symbol, not the whole wordmark: at 16 px only a shape survives.</p>
+          </div>
+
+          <!-- Letters -->
+          <div data-fields="text" hidden>
+            <label class="field"><span>Letters (1–3)</span><input class="input" type="text" maxlength="3" autocomplete="off" spellcheck="false" placeholder="G" data-in="letters" /></label>
+            <label class="field"><span>Font</span>
+              <select class="select" data-in="font">
+                <option value="Bricolage Grotesque">Bricolage Grotesque</option>
+                <option value="Inter">Inter</option>
+                <option value="Geist Mono">Geist Mono</option>
+                <option value="Georgia">Georgia (serif)</option>
+                <option value="system-ui">System</option>
+              </select>
+            </label>
+            <div class="field-row"><span>Weight</span></div>
+            <div class="seg" data-weight role="group" aria-label="Weight" style="margin-top:6px">
+              <button type="button" data-value="400" aria-pressed="false">Regular</button>
+              <button type="button" data-value="600" aria-pressed="false">Semibold</button>
+              <button type="button" data-value="800" aria-pressed="false">Bold</button>
+            </div>
+            <div class="field-row"><span>Colour</span></div>
+            <div class="color" style="margin-top:6px">
+              <label class="swatch" data-swatch="fg"><input type="color" data-color="fg" aria-label="Letter colour" /></label>
+              <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="fg" aria-label="Letter colour hex" />
+            </div>
+            <p class="hint">Letters export as PNG and ICO. For an <code>icon.svg</code> as well, start from an SVG logo.</p>
+          </div>
+
+          <details class="tip">
+            <summary>Using WordPress?</summary>
+            <p>Under <b>Appearance → Customize → Site Identity → Site Icon</b>, upload the <b>512 px PNG</b> from the bar below. WordPress makes the other sizes itself.</p>
+            <p>Download the full ZIP when you want the SVG favicon, the dark-tab version, or a site that isn't WordPress.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ============ Centre: previews ============ -->
+      <section class="stage" aria-label="Previews and checks">
+        <div class="canvas fav-canvas" data-canvas>
+          <span class="canvas-zoom" aria-hidden="true">Preview</span>
+          <div class="fav-board">
+            <figure class="ff ff-main">
+              <figcaption class="ff-name">icon-512.png</figcaption>
+              <div class="ff-big" data-big>
+                <i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i>
+                <canvas data-pv="big" role="img" aria-label="Favicon preview"></canvas>
+              </div>
+              <span class="qr-frame-size">512 × 512</span>
+            </figure>
+
+            <figure class="ff ff-tabs">
+              <figcaption class="ff-name">Browser tabs</figcaption>
+              <div class="tab-strip is-light"><span class="tab"><canvas data-pv="tab-light" aria-hidden="true"></canvas><span class="tab-title" data-site-name>My site</span><i aria-hidden="true">×</i></span><span class="tab is-back"><span class="tab-dot"></span><span class="tab-title">New tab</span></span></div>
+              <div class="tab-strip is-dark"><span class="tab"><canvas data-pv="tab-dark" aria-hidden="true"></canvas><span class="tab-title" data-site-name>My site</span><i aria-hidden="true">×</i></span><span class="tab is-back"><span class="tab-dot"></span><span class="tab-title">New tab</span></span></div>
+            </figure>
+
+            <figure class="ff ff-home">
+              <figcaption class="ff-name">Home screen</figcaption>
+              <div class="home-screen">
+                <span class="app-ic is-ios"><canvas data-pv="apple" aria-hidden="true"></canvas><small data-short-name>My site</small></span>
+                <span class="app-ic is-android"><canvas data-pv="mask" aria-hidden="true"></canvas><small data-short-name>My site</small></span>
+              </div>
+              <p class="ff-note"><span>iPhone</span><span>Android</span></p>
+            </figure>
+
+            <figure class="ff ff-search">
+              <figcaption class="ff-name">Search result</figcaption>
+              <div class="serp">
+                <div class="serp-site">
+                  <span class="serp-ic"><canvas data-pv="serp" aria-hidden="true"></canvas></span>
+                  <span><b data-site-name>My site</b><small>https://yoursite.com</small></span>
+                </div>
+                <p class="serp-title">Your page title</p>
+              </div>
+            </figure>
+
+            <figure class="ff ff-sizes">
+              <figcaption class="ff-name">Actual pixels · favicon.ico</figcaption>
+              <div class="px-row">
+                <span><canvas data-px="16" aria-hidden="true"></canvas><small>16</small></span>
+                <span><canvas data-px="32" aria-hidden="true"></canvas><small>32</small></span>
+                <span><canvas data-px="48" aria-hidden="true"></canvas><small>48</small></span>
+              </div>
+            </figure>
+          </div>
+          <span class="sample-tag">Sample · add a logo or letters to start</span>
+        </div>
+
+        <div class="checks surface" aria-live="polite">
+          <ul>
+            <li data-check="source" data-state="wait"><span class="ic" data-ic></span><span class="k">Source</span><span class="v" data-v>—</span></li>
+            <li data-check="light" data-state="wait"><span class="ic" data-ic></span><span class="k">Light tabs</span><span class="v" data-v>—</span></li>
+            <li data-check="dark" data-state="wait"><span class="ic" data-ic></span><span class="k">Dark tabs</span><span class="v" data-v>—</span></li>
+            <li data-check="small" data-state="wait"><span class="ic" data-ic></span><span class="k">At 16 px</span><span class="v" data-v>—</span></li>
+            <li data-check="phones" data-state="info"><span class="ic" data-ic></span><span class="k">Phones</span><span class="v" data-v>—</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ Right: style, app details, code ============ -->
+      <section class="panel surface" aria-labelledby="style-title">
+        <div class="panel-head"><b id="style-title">Style</b><span>Shape · App · Code</span></div>
+
+        <div class="sec">
+          <div class="sec-title">Background</div>
+          <div class="styles" data-shape role="group" aria-label="Background shape">
+            <button type="button" data-value="square" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="3" width="20" height="20"/></svg>Square</button>
+            <button type="button" data-value="rounded" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="3" width="20" height="20" rx="5"/></svg>Rounded</button>
+            <button type="button" data-value="circle" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10"/></svg>Circle</button>
+          </div>
+          <div class="color">
+            <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background colour" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background colour hex" />
+          </div>
+          <label class="check"><input type="checkbox" data-in-design="transparent" />Transparent (logo only)</label>
+          <label class="check" data-dark-row hidden><input type="checkbox" data-in-design="darkInvert" />Invert on dark tabs (SVG)</label>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Padding <small>space around the logo</small></div>
+          <div class="range">
+            <input type="range" min="0" max="30" step="1" data-pad aria-label="Padding" />
+            <output data-pad-out>14%</output>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">App <small>manifest</small></div>
+          <label class="field"><span>Site name</span><input class="input" type="text" maxlength="60" autocomplete="off" placeholder="My site" data-in="name" /></label>
+          <label class="field"><span>Short name (under the phone icon)</span><input class="input" type="text" maxlength="14" autocomplete="off" placeholder="My site" data-in="short" /></label>
+          <div class="field-row"><span>Theme colour (phone browser bar)</span></div>
+          <div class="color" data-theme-color style="margin-top:6px">
+            <label class="swatch" data-swatch="theme"><input type="color" data-color="theme" aria-label="Theme colour" /></label>
+            <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="theme" aria-label="Theme colour hex" />
+          </div>
+          <label class="check"><input type="checkbox" data-in-design="themeSame" />Same as the background</label>
+          <label class="field"><span>Folder on your site</span><input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="/" data-in="path" /></label>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Code for your &lt;head&gt; <small data-file-count></small></div>
+          <pre class="code" data-code></pre>
+          <ul class="files" data-files></ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Export: the same floating bar as the QR tool -->
+    <div class="export-bar" role="toolbar" aria-label="Export">
+      <button type="button" class="xb-btn is-primary" data-export="zip" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>ZIP</b><span class="tb-tip" aria-hidden="true">Every file + the manifest</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <button type="button" class="xb-btn" data-export="ico" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>ICO</b><span class="tb-tip" aria-hidden="true">favicon.ico · 16, 32, 48 px</span></button>
+      <button type="button" class="xb-btn" data-export="png" data-cursor="Download"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg><b>PNG 512</b><span class="tb-tip" aria-hidden="true">For the WordPress Site Icon</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <button type="button" class="xb-btn" data-copy="html" data-cursor="Copy" aria-label="Copy the head code"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 7.5-5 4.5 5 4.5M15.5 7.5l5 4.5-5 4.5"/></svg><b>Copy code</b><span class="tb-tip" aria-hidden="true">The &lt;link&gt; tags for your &lt;head&gt;</span></button>
+    </div>
+
+    <footer class="foot">
+      <span>Made by <a href="https://gglias.github.io/" target="_blank" rel="noopener">Greg Glias</a>. Icons are drawn, packed and zipped right here in your browser.</span>
+      <span>© <span data-year>2026</span></span>
+    </footer>
+    </div>
+  </div>
+  <div class="sb-backdrop" aria-hidden="true"></div>
+
+  <div class="fig-cursor" aria-hidden="true" data-fig-cursor>
+    <svg viewBox="0 0 24 24"><path d="M4 3.5 19.5 10.3 12.6 12.6 10.3 19.5z"/></svg>
+    <span class="fig-cursor-label" data-fig-label>You</span>
+  </div>
+
+
+  <script src="../site.js?v=3"></script>
+  <script src="favicon.js?v=1"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@
   var ICON = {
     home: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
+    favicon: '<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9h17"/><rect x="7" y="12" width="4.5" height="4.5" rx="1.2"/>',
     slugs: '<path d="M5 7h7M8.5 7v10M14 17l3-10 3 10M15 14h4"/>',
     clamp: '<path d="M4 17V7l4 5 4-5v10M15 17h5M17.5 7v10"/>',
     portfolio: '<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.6-3.8 3.6-6 7.5-6s6.9 2.2 7.5 6"/>',
@@ -24,7 +25,8 @@
   };
 
   var GROUPS = [
-    { title: "Print & share", items: [{ id: "qr", name: "QR code", href: "qr/", badge: "New" }] },
+    { title: "Print & share", items: [{ id: "qr", name: "QR code", href: "qr/" }] },
+    { title: "Web", items: [{ id: "favicon", name: "Favicon", href: "favicon/", badge: "New" }] },
     { title: "WordPress", items: [{ id: "slugs", name: "Greek → Latin slugs", soon: true }] },
     { title: "CSS", items: [{ id: "clamp", name: "Fluid type", soon: true }] }
   ];
