@@ -1163,6 +1163,61 @@ pre.code {
 .files span { color: var(--muted); }
 .styles button:disabled { opacity: 0.35; cursor: not-allowed; }
 
+/* Folding groups in a panel: closed by default, the header shows the current value */
+details.acc { padding: 0 16px; }
+.sec + details.acc,
+details.acc + .sec { margin-top: 0; }
+.acc-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  list-style: none;
+  font: 600 11.5px/1 var(--f-body);
+  color: var(--text);
+  user-select: none;
+}
+.acc-head::-webkit-details-marker { display: none; }
+.acc-head > span:first-child { flex: none; }
+.acc-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-left: auto;
+  font: 400 11px/1.2 var(--f-mono);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.acc-val i {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  border: 1px solid var(--line-2);
+  background: var(--chip, transparent);
+}
+.acc-val i.is-circle { border-radius: 50%; }
+.acc-val i.is-none { background: conic-gradient(#3a3a3e 25%, #26262a 0 50%, #3a3a3e 0 75%, #26262a 0) 0 0 / 6px 6px; }
+.acc-chev {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s var(--ease);
+}
+.acc-head:hover .acc-val,
+.acc-head:hover .acc-chev { color: var(--text); stroke: var(--text); }
+details.acc[open] .acc-chev { transform: rotate(180deg); }
+details.acc[open] .acc-val { visibility: hidden; }   /* the controls below say it already */
+.acc-body { padding: 2px 0 6px; }
+
 @container (max-width: 460px) {
   .fav-board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "tabs" "home" "search" "sizes"; gap: 34px; }
   .ff-big { width: min(60cqi, 220px); }

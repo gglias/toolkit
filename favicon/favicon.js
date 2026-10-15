@@ -119,7 +119,10 @@
       var px = 100 * Math.min(side / Math.max(w, 1), side / Math.max(h, 1));
       ctx.font = fontCss(px);
       m = ctx.measureText(t);
-      ctx.fillStyle = design.fg;
+      var fg = design.fg;
+      // the sample "G" must show even when the letter colour matches the background
+      if (isSample() && ratio(lum(rgb(fg)), lum(rgb(design.bg))) < 2) fg = lum(rgb(design.bg)) > 0.4 ? "#141414" : "#ffffff";
+      ctx.fillStyle = fg;
       ctx.textBaseline = "alphabetic";
       ctx.textAlign = "left";
       ctx.fillText(t,
@@ -680,7 +683,14 @@
 
     $("[data-code]").textContent = headCode();
     var files = FILES();
-    $("[data-file-count]").textContent = files.length + " files in the ZIP";
+    $("[data-file-count]").textContent = files.length + " files";
+
+    // What each folded group is set to (bg is always a checked #hex)
+    var shapeName = { square: "Square", rounded: "Rounded", circle: "Circle" }[design.shape];
+    $('[data-acc="bg"]').innerHTML = design.transparent ? '<i class="is-none"></i>Transparent'
+      : '<i class="' + (design.shape === "circle" ? "is-circle" : "") + '" style="--chip:' + design.bg + '"></i>' + shapeName + " · " + design.bg.toUpperCase();
+    $('[data-acc="pad"]').textContent = design.pad + "%";
+    $('[data-acc="app"]').textContent = siteName() + (folder() !== "/" ? " · " + folder() : "");
     $("[data-files]").innerHTML = files.map(function (f) { return "<li><b>" + f[0] + "</b><span>" + f[1] + "</span></li>"; }).join("");
 
     checks();

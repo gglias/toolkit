@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Wider weight ranges than the other pages: the Letters option draws with them -->
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400..800&family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=8" />
+  <link rel="stylesheet" href="../styles.css?v=9" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
@@ -166,8 +166,10 @@
       <section class="panel surface" aria-labelledby="style-title">
         <div class="panel-head"><b id="style-title">Style</b><span>Shape · App · Code</span></div>
 
-        <div class="sec">
-          <div class="sec-title">Background</div>
+        <!-- Each group folds; closed it shows its current value -->
+        <details class="sec acc">
+          <summary class="acc-head"><span>Background</span><span class="acc-val" data-acc="bg"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="styles" data-shape role="group" aria-label="Background shape">
             <button type="button" data-value="square" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="3" width="20" height="20"/></svg>Square</button>
             <button type="button" data-value="rounded" aria-pressed="false"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="3" y="3" width="20" height="20" rx="5"/></svg>Rounded</button>
@@ -179,18 +181,23 @@
           </div>
           <label class="check"><input type="checkbox" data-in-design="transparent" />Transparent (logo only)</label>
           <label class="check" data-dark-row hidden><input type="checkbox" data-in-design="darkInvert" />Invert on dark tabs (SVG)</label>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Padding <small>space around the logo</small></div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Padding</span><span class="acc-val" data-acc="pad"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+          <p class="hint" style="margin-bottom:8px">Space around the logo, inside the icon.</p>
           <div class="range">
             <input type="range" min="0" max="30" step="1" data-pad aria-label="Padding" />
             <output data-pad-out>14%</output>
           </div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">App <small>manifest</small></div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>App</span><span class="acc-val" data-acc="app"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <label class="field"><span>Site name</span><input class="input" type="text" maxlength="60" autocomplete="off" placeholder="My site" data-in="name" /></label>
           <label class="field"><span>Short name (under the phone icon)</span><input class="input" type="text" maxlength="14" autocomplete="off" placeholder="My site" data-in="short" /></label>
           <div class="field-row"><span>Theme colour (phone browser bar)</span></div>
@@ -200,13 +207,17 @@
           </div>
           <label class="check"><input type="checkbox" data-in-design="themeSame" />Same as the background</label>
           <label class="field"><span>Folder on your site</span><input class="input" type="text" autocomplete="off" spellcheck="false" placeholder="/" data-in="path" /></label>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Code for your &lt;head&gt; <small data-file-count></small></div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Code &amp; files</span><span class="acc-val" data-file-count></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+          <p class="hint" style="margin-bottom:8px">Paste inside the &lt;head&gt; of every page.</p>
           <pre class="code" data-code></pre>
           <ul class="files" data-files></ul>
-        </div>
+          </div>
+        </details>
       </section>
     </main>
 
@@ -235,6 +246,6 @@
 
 
   <script src="../site.js?v=3"></script>
-  <script src="favicon.js?v=2"></script>
+  <script src="favicon.js?v=3"></script>
 </body>
 </html>
