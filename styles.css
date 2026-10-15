@@ -367,6 +367,15 @@ a.tool:hover .art-qr { transform: rotate(0deg) scale(1.04); }
 .art-pal b small { font: 400 11px/1 var(--f-mono); opacity: 0.85; }
 a.tool:hover .art-pal { transform: rotate(0deg) scale(1.03); }
 
+/* Home do-not-disturb preview: a little monitor with the sign */
+.art-dnd { display: grid; justify-items: center; width: 70%; transform: rotate(-3deg); transition: transform 0.5s var(--ease); }
+.art-dnd-sign { display: grid; gap: 6px; width: 100%; aspect-ratio: 16 / 9; padding: 7% 8%; border: 5px solid #1d1d20; border-radius: 8px; background: #ff5b1f; color: #fff; box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7); align-content: space-between; }
+.art-dnd-sign b { font: 500 9px/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+.art-dnd-sign strong { font: 700 clamp(1.1rem, 2.2vw, 1.6rem)/1 var(--f-display); letter-spacing: -0.04em; }
+.art-dnd-sign small { font: 400 9px/1 var(--f-mono); opacity: 0.85; }
+.art-dnd-stand { width: 22%; height: 14px; background: #1d1d20; clip-path: polygon(30% 0, 70% 0, 85% 100%, 15% 100%); }
+a.tool:hover .art-dnd { transform: rotate(0deg) scale(1.03); }
+
 /* Home favicon preview: the app icon above a browser tab */
 .art-fav { display: grid; justify-items: center; gap: 22px; width: 78%; }
 .art-fav-icon {
@@ -1373,6 +1382,132 @@ details.acc[open] .acc-val { visibility: hidden; }   /* the controls below say i
   font: 600 11.5px/1 var(--f-body);
 }
 .code-copy:hover { background: #2e2e33; }
+
+/* ================= Do not disturb ================= */
+.dnd-presets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; }
+.dnd-presets button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: rgb(255 255 255 / 0.035);
+  color: var(--muted);
+  font: 500 12px/1.2 var(--f-body);
+  text-align: left;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.dnd-presets button span { flex: none; font-size: 15px; }
+.dnd-presets button:hover { background: rgb(255 255 255 / 0.07); color: var(--text); }
+.dnd-presets button[aria-pressed="true"] { border-color: var(--select); background: rgb(13 153 255 / 0.12); color: #fff; }
+
+.dnd-themes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 10px; }
+.dnd-themes button {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 8px 2px 7px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.035);
+  color: var(--muted);
+  font: 500 10.5px/1 var(--f-body);
+}
+.dnd-themes button:hover { color: var(--text); background: rgb(255 255 255 / 0.07); }
+.dnd-themes button[aria-pressed="true"] { border-color: var(--select); background: rgb(13 153 255 / 0.12); color: #fff; }
+.dnd-themes i { width: 26px; height: 18px; border-radius: 5px; border: 1px solid var(--line-2); }
+.sw-ember { background: #ff5b1f; }
+.sw-onair { background: #0c0c0d; box-shadow: inset 0 0 0 2px #ff2a2a; }
+.sw-night { background: linear-gradient(135deg, #0b0b0c 55%, #a259ff); }
+.sw-calm { background: #123c33; }
+.sw-paper { background: #f3f1ea; }
+
+/* A monitor on the canvas */
+.dnd-canvas { display: grid; place-items: center; min-height: 0; padding: 56px 24px 44px; }
+.monitor { display: grid; justify-items: center; width: min(100%, 620px); }
+.monitor-screen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  container-type: size;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 8px solid #1d1d20;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), 0 30px 60px -20px rgb(0 0 0 / 0.8);
+}
+.monitor-stand { width: 22%; height: 34px; background: linear-gradient(#1d1d20, #141416); clip-path: polygon(30% 0, 70% 0, 85% 100%, 15% 100%); }
+
+/* The sign: sized by its screen (container units), five looks + "done" */
+.sign {
+  --bg: #ff5b1f; --fg: #fff; --soft: rgb(255 255 255 / 0.78); --accent: #fff; --track: rgb(255 255 255 / 0.25);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100%;
+  padding: 5cqmin 6cqmin;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  transition: background 0.6s var(--ease), color 0.6s;
+  overflow: hidden;
+}
+.sign[data-theme="onair"] { --bg: #0c0c0d; --fg: #fff; --soft: rgb(255 255 255 / 0.6); --accent: #ff2a2a; --track: rgb(255 255 255 / 0.12); box-shadow: inset 0 0 0 1.2cqmin #ff2a2a, inset 0 0 12cqmin rgb(255 42 42 / 0.25); }
+.sign[data-theme="night"] { --bg: #0b0b0c; --fg: #f3f3f1; --soft: #9b9ba1; --accent: #a259ff; --track: rgb(255 255 255 / 0.1); }
+.sign[data-theme="calm"] { --bg: #123c33; --fg: #e9fff6; --soft: rgb(233 255 246 / 0.7); --accent: #7ff0c3; --track: rgb(233 255 246 / 0.18); }
+.sign[data-theme="paper"] { --bg: #f3f1ea; --fg: #141414; --soft: #6b6862; --accent: #ff5b1f; --track: rgb(0 0 0 / 0.08); }
+.sign[data-theme="done"] { --bg: #0f7a4a; --fg: #fff; --soft: rgb(255 255 255 / 0.82); --accent: #b6ffd9; --track: transparent; }
+.sign-top, .sign-foot { display: flex; justify-content: space-between; align-items: center; gap: 4cqmin; font: 500 3.4cqmin/1 var(--f-mono); color: var(--soft); }
+.sign-kicker { display: inline-flex; align-items: center; gap: 1.6cqmin; text-transform: uppercase; letter-spacing: 0.08em; }
+.sign-dot { width: 2cqmin; height: 2cqmin; border-radius: 50%; background: var(--accent); }
+.sign[data-theme="onair"] .sign-dot { animation: dndBlink 1.4s ease-in-out infinite; box-shadow: 0 0 2cqmin #ff2a2a; }
+@keyframes dndBlink { 50% { opacity: 0.25; } }
+.sign-clock { font-variant-numeric: tabular-nums; }
+.sign.no-clock .sign-clock { visibility: hidden; }
+.sign-main { display: grid; align-content: center; justify-items: start; gap: 2.4cqmin; min-height: 0; }
+.sign-emoji { font-size: 11cqmin; line-height: 1; }
+.sign-text {
+  margin: 0;
+  font: 700 calc(15cqmin * var(--fit, 1))/0.95 var(--f-display);
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+}
+.sign-sub { margin: 0; font: 400 4.6cqmin/1.25 var(--f-body); color: var(--soft); }
+.sign-foot span:last-child { font-variant-numeric: tabular-nums; color: var(--fg); }
+.sign.no-timer .sign-foot { visibility: hidden; }
+.sign-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 1.1cqmin; background: var(--track); }
+.sign-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 1s linear; }
+.sign[data-theme="ember"] .sign-bar i { background: rgb(255 255 255 / 0.9); }
+.sign.no-bar .sign-bar { display: none; }
+.sign.is-done .sign-text { animation: dndPop 0.7s var(--ease) both; }
+@keyframes dndPop { from { transform: scale(0.92); opacity: 0; } }
+
+/* Full screen */
+.dnd-overlay { position: fixed; inset: 0; z-index: 150; background: #000; }
+.dnd-overlay [data-live] { width: 100%; height: 100%; container-type: size; }
+html.has-fig-cursor .dnd-overlay, html.has-fig-cursor .dnd-overlay * { cursor: auto !important; }
+html.has-fig-cursor .dnd-overlay button { cursor: pointer !important; }
+.dnd-overlay.is-idle, .dnd-overlay.is-idle * { cursor: none !important; }
+html.dnd-on .fig-cursor { display: none; }
+html.dnd-on body { overflow: hidden; }
+.dnd-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  transform: translateX(-50%);
+  border-radius: 14px;
+  background: rgb(20 20 22 / 0.85);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  transition: opacity 0.3s, transform 0.3s var(--ease);
+}
+.dnd-overlay.is-idle .dnd-controls { opacity: 0; transform: translate(-50%, 12px); pointer-events: none; }
+.dnd-controls button { padding: 10px 14px; border: 0; border-radius: 10px; background: transparent; color: #e6e6e9; font: 600 13px/1 var(--f-body); }
+.dnd-controls button:hover { background: rgb(255 255 255 / 0.1); }
+.dnd-controls kbd { margin-left: 6px; padding: 2px 5px; border-radius: 4px; background: rgb(255 255 255 / 0.12); font: 400 11px/1 var(--f-mono); }
 
 /* ================= Buttons ================= */
 .btn {

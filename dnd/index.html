@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-tool="dnd" data-base="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Do not disturb sign — Toolkit</title>
+  <meta name="description" content="A full-screen Do not disturb sign for your second monitor: your message, a countdown, and a big green Available when you're done. Free, runs in your browser." />
+  <meta property="og:title" content="Do not disturb — Toolkit by Greg Glias" />
+  <meta property="og:description" content="Put a big “In focus until 15:30” on your second screen. Countdown, funny presets, no sign-up." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#09090a" />
+  <script>try { if (localStorage.getItem("tk-sidebar") === "mini") document.documentElement.classList.add("sb-mini"); } catch (e) {}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=13" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+</head>
+<body>
+  <a class="skip" href="#message-panel">Skip to the sign</a>
+  <div class="glow" aria-hidden="true"><span class="glow-a"></span><span class="glow-b"></span></div>
+
+  <div class="layout">
+    <aside class="sidebar surface" id="sidebar" aria-label="Toolkit"></aside>
+    <script src="../tools.js?v=7"></script>
+
+    <div class="main">
+    <header class="main-top">
+      <button type="button" class="menu-btn" data-sb-open aria-controls="sidebar" aria-expanded="false" aria-label="Open the tools menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Toolkit</a><span aria-hidden="true">/</span><b>Do not disturb</b></nav>
+      <a class="top-link" href="https://gglias.github.io/" target="_blank" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="tool-hero">
+      <div>
+        <span class="eyebrow">Tool 04 · Just for fun</span>
+        <h1>Do not disturb</h1>
+        <p>A big sign for your second monitor, so the office knows you're in the zone. Pick a message, set when you're free, go full screen. When the time's up, it turns into a green <b>Available</b>.</p>
+      </div>
+    </div>
+
+    <main class="app">
+      <!-- ============ Left: the message ============ -->
+      <section class="panel surface" id="message-panel" aria-labelledby="msg-title">
+        <div class="panel-head"><b id="msg-title">Message</b><span>Presets · Your words</span></div>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Presets</span><span class="acc-val" data-acc="preset"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="seg" data-lang role="group" aria-label="Preset language">
+              <button type="button" data-value="en" aria-pressed="false">English</button>
+              <button type="button" data-value="el" aria-pressed="false">Ελληνικά</button>
+            </div>
+            <div class="dnd-presets" data-presets role="group" aria-label="Presets"></div>
+          </div>
+        </details>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Your words</span><span class="acc-val" data-acc="words"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <label class="field"><span>Emoji</span><input class="input" type="text" maxlength="4" autocomplete="off" placeholder="🎧" data-in="emoji" /></label>
+            <label class="field"><span>Big text</span><input class="input" type="text" maxlength="40" autocomplete="off" placeholder="In focus" data-in="text" /></label>
+            <label class="field"><span>Small line</span><input class="input" type="text" maxlength="70" autocomplete="off" placeholder="Questions after the timer" data-in="sub" /></label>
+            <label class="field"><span>When it's over</span><input class="input" type="text" maxlength="40" autocomplete="off" placeholder="Available" data-in="done" /></label>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ Centre: the monitor ============ -->
+      <section class="stage" aria-label="Preview">
+        <div class="canvas dnd-canvas">
+          <span class="canvas-zoom" aria-hidden="true">Preview · your second screen</span>
+          <div class="monitor">
+            <div class="monitor-screen" data-preview></div>
+            <span class="monitor-stand" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="checks surface">
+          <ul>
+            <li data-state="info"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 11v6M12 7h.01"/></svg></span><span class="k">How</span><span class="v">Open it on the screen people see, press <b>Full screen</b>. Press <b>Esc</b> to stop.<small>Or use <b>New window</b>, drag it to the second monitor and press <b>F</b> there.</small></span></li>
+            <li data-state="ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span class="k">Screen</span><span class="v" data-wake>Stays awake while the sign is up, where the browser allows it.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ Right: time + look ============ -->
+      <section class="panel surface" aria-labelledby="time-title">
+        <div class="panel-head"><b id="time-title">Sign</b><span>Timer · Look</span></div>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Timer</span><span class="acc-val" data-acc="timer"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="seg" data-mode role="group" aria-label="Timer">
+              <button type="button" data-value="until" aria-pressed="false">Until</button>
+              <button type="button" data-value="for" aria-pressed="false">For</button>
+              <button type="button" data-value="none" aria-pressed="false">No timer</button>
+            </div>
+            <div data-mode-until>
+              <label class="field"><span>Free again at</span><input class="input" type="time" data-in="until" /></label>
+            </div>
+            <div data-mode-for>
+              <div class="seg" data-for role="group" aria-label="Length">
+                <button type="button" data-value="25" aria-pressed="false">25′</button>
+                <button type="button" data-value="50" aria-pressed="false">50′</button>
+                <button type="button" data-value="90" aria-pressed="false">90′</button>
+                <button type="button" data-value="120" aria-pressed="false">2h</button>
+              </div>
+            </div>
+            <label class="check"><input type="checkbox" data-opt="chime" />A soft chime when it's over</label>
+          </div>
+        </details>
+
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Look</span><span class="acc-val" data-acc="look"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
+            <div class="dnd-themes" data-themes role="group" aria-label="Theme"></div>
+            <label class="check"><input type="checkbox" data-opt="clock" />Show the clock</label>
+            <label class="check"><input type="checkbox" data-opt="bar" />Show the progress bar</label>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <!-- Go: the same floating bar as the other tools -->
+    <div class="export-bar" role="toolbar" aria-label="Show the sign">
+      <button type="button" class="xb-btn is-primary" data-go="full" data-cursor="Go"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><b>Full screen</b><span class="tb-tip" aria-hidden="true">Start the sign · Esc to stop</span></button>
+      <span class="tb-sep" aria-hidden="true"></span>
+      <button type="button" class="xb-btn" data-go="window" data-cursor="Open"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 9h17"/></svg><b>New window</b><span class="tb-tip" aria-hidden="true">Drag it to the other screen</span></button>
+      <button type="button" class="xb-btn" data-copy="link" data-cursor="Copy" aria-label="Copy the link"><svg class="tb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><b>Copy link</b><span class="tb-tip" aria-hidden="true">The same sign on a tablet or another PC</span></button>
+    </div>
+
+    <footer class="foot">
+      <span>Made by <a href="https://gglias.github.io/" target="_blank" rel="noopener">Greg Glias</a>. Your colleagues have been warned.</span>
+      <span>© <span data-year>2026</span></span>
+    </footer>
+    </div>
+  </div>
+  <div class="sb-backdrop" aria-hidden="true"></div>
+
+  <!-- The sign itself, full screen -->
+  <div class="dnd-overlay" data-overlay hidden>
+    <div data-live></div>
+    <div class="dnd-controls" role="toolbar" aria-label="Sign controls">
+      <button type="button" data-ctl="more">+15 min</button>
+      <button type="button" data-ctl="done">I'm free</button>
+      <button type="button" data-ctl="exit">Stop <kbd>Esc</kbd></button>
+    </div>
+  </div>
+
+  <div class="fig-cursor" aria-hidden="true" data-fig-cursor>
+    <svg viewBox="0 0 24 24"><path d="M4 3.5 19.5 10.3 12.6 12.6 10.3 19.5z"/></svg>
+    <span class="fig-cursor-label" data-fig-label>You</span>
+  </div>
+
+  <script src="../site.js?v=3"></script>
+  <script src="dnd.js?v=2"></script>
+</body>
+</html>

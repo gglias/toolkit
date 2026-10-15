@@ -13,6 +13,7 @@
     qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
     favicon: '<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9h17"/><rect x="7" y="12" width="4.5" height="4.5" rx="1.2"/>',
     colors: '<path d="M12 3.5a8.5 8.5 0 0 0 0 17c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7h2a4 4 0 0 0 4-4C20.5 6.6 16.7 3.5 12 3.5z"/><circle cx="7.8" cy="11.5" r="1.1"/><circle cx="10.5" cy="7.6" r="1.1"/><circle cx="15" cy="7.8" r="1.1"/>',
+    dnd: '<rect x="3.5" y="4.5" width="17" height="11.5" rx="2"/><path d="M9 20h6M12 16v4M9.5 10.3h5"/>',
     slugs: '<path d="M5 7h7M8.5 7v10M14 17l3-10 3 10M15 14h4"/>',
     clamp: '<path d="M4 17V7l4 5 4-5v10M15 17h5M17.5 7v10"/>',
     portfolio: '<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.6-3.8 3.6-6 7.5-6s6.9 2.2 7.5 6"/>',
@@ -28,7 +29,8 @@
   var GROUPS = [
     { title: "Print & share", items: [{ id: "qr", name: "QR code", href: "qr/" }] },
     { title: "Web", items: [{ id: "favicon", name: "Favicon", href: "favicon/" }] },
-    { title: "Design systems", items: [{ id: "colors", name: "Color palette", href: "colors/", badge: "New" }] },
+    { title: "Design systems", items: [{ id: "colors", name: "Color palette", href: "colors/" }] },
+    { title: "Just for fun", items: [{ id: "dnd", name: "Do not disturb", href: "dnd/", badge: "New" }] },
     { title: "WordPress", items: [{ id: "slugs", name: "Greek → Latin slugs", soon: true }] },
     { title: "CSS", items: [{ id: "clamp", name: "Fluid type", soon: true }] }
   ];
