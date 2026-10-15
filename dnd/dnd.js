@@ -18,7 +18,13 @@
       ["🎨", "Pixel pushing", "One more nudge to the left"],
       ["🍰", "Do not disturb", "Unless there's cake"],
       ["🔴", "Recording", "Silence, please"],
-      ["☕", "Coffee break", "Back soon. Probably."]
+      ["☕", "Coffee break", "Back soon. Probably."],
+      ["🖌️", "In Figma", "Auto layout is fighting back"],
+      ["📱", "Flutter mode", "Hot reload in progress"],
+      ["🖥️", "Frontend", "Centering a div. Pray for me."],
+      ["🗄️", "Backend", "Talking to the database. It isn't listening."],
+      ["🚬", "Smoke break", "Back in 5 minutes"],
+      ["🚽", "Bathroom break", "Nature called. I answered."]
     ],
     el: [
       ["🎧", "Σε συγκέντρωση", "Ερωτήσεις μετά το χρονόμετρο"],
@@ -28,7 +34,13 @@
       ["🎨", "Pixel pushing", "Άλλο ένα pixel αριστερά"],
       ["🍰", "Μην ενοχλείτε", "Εκτός αν φέρνετε γλυκό"],
       ["🔴", "Ηχογράφηση", "Ησυχία, παρακαλώ"],
-      ["☕", "Διάλειμμα για καφέ", "Επιστρέφω σύντομα. Μάλλον."]
+      ["☕", "Διάλειμμα για καφέ", "Επιστρέφω σύντομα. Μάλλον."],
+      ["🖌️", "Στο Figma", "Το auto layout με πολεμάει"],
+      ["📱", "Flutter mode", "Hot reload σε εξέλιξη"],
+      ["🖥️", "Frontend", "Κεντράρω ένα div. Προσευχηθείτε."],
+      ["🗄️", "Backend", "Μιλάω με τη βάση. Δεν απαντάει."],
+      ["🚬", "Τσιγάρο", "Πίσω σε 5 λεπτά"],
+      ["🚽", "Τουαλέτα", "Με κάλεσε η φύση"]
     ]
   };
   var WORDS = {
