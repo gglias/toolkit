@@ -26,7 +26,7 @@
   ];
   var CORNERS = [["square", "Square"], ["extra-rounded", "Rounded"], ["dot", "Circle"]];
 
-  var design = Object.assign({ ecc: "Q", quiet: 4, logoSize: 30 }, PRESETS[1].d);
+  var design = Object.assign({ ecc: "Q", quiet: 4, logoSize: 30 }, PRESETS[0].d);   // Classic: square dots, square corners
   try {
     var saved = JSON.parse(localStorage.getItem(STORE) || "null");
     if (saved && typeof saved === "object") Object.assign(design, saved);
@@ -475,6 +475,7 @@
         design[key] = v.toLowerCase();
         picker.value = design[key];
         $('[data-swatch="' + key + '"]').style.setProperty("--swatch", design[key]);
+        heads();
         save();
         schedule();
       }
@@ -573,6 +574,26 @@
     sizeIn.value = design.logoSize;
     sizeIn.style.setProperty("--p", ((design.logoSize - 15) / 25 * 100) + "%");
     $("[data-logo-size-out]").textContent = design.logoSize + "%";
+    heads();
+  };
+
+  // What each folded group is set to (colours are always checked #hex)
+  var label = function (list, v) { var f = list.filter(function (x) { return x[0] === v; })[0]; return f ? f[1] : v; };
+  var chip = function (c, round) { return '<i class="' + (round ? "is-circle" : "") + '" style="--chip:' + c + '"></i>'; };
+  var heads = function () {
+    var keys = Object.keys(PRESETS[0].d);
+    var match = -1;
+    PRESETS.forEach(function (p, i) {
+      if (match < 0 && keys.every(function (k) { return k === "cornerColor" && p.d.cornerSame && design.cornerSame ? true : p.d[k] === design[k]; })) match = i;
+    });
+    $$("[data-preset]").forEach(function (b, i) { b.setAttribute("aria-pressed", String(i === match)); });
+    $('[data-acc="presets"]').textContent = match < 0 ? "Custom" : PRESETS[match].name;
+    $('[data-acc="dots"]').innerHTML = chip(design.dotsColor, design.dots === "dots") + label(DOTS, design.dots) + " · " + design.dotsColor.toUpperCase();
+    $('[data-acc="corners"]').innerHTML = (design.cornerSame ? "" : chip(design.cornerColor, design.corner === "dot")) +
+      label(CORNERS, design.corner) + " · " + (design.cornerDot === "dot" ? "round" : "square") + " centre";
+    $('[data-acc="bg"]').innerHTML = design.transparent ? '<i class="is-none"></i>Transparent' : chip(design.bg) + design.bg.toUpperCase();
+    $('[data-acc="logo"]').textContent = logo ? $("[data-logo-name]").textContent : "None";
+    $('[data-acc="scan"]').textContent = "ECC " + (logo ? "H" : design.ecc) + " · " + { 0: "No border", 2: "Small", 4: "Standard" }[design.quiet];
   };
 
   // ---------- Export ----------

@@ -642,6 +642,8 @@ a.tool:hover .art-fav-icon { transform: rotate(0deg) scale(1.06); }
   font: 500 10.5px/1 var(--f-body);
 }
 .presets button:hover { background: rgb(255 255 255 / 0.05); color: var(--text); }
+.presets button[aria-pressed="true"] { color: #fff; }
+.presets button[aria-pressed="true"] i { outline: 2px solid var(--select); outline-offset: 2px; }
 .presets i {
   display: block;
   width: 40px;

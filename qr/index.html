@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@400;500&family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=9" />
+  <link rel="stylesheet" href="../styles.css?v=10" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 </head>
 <body>
@@ -172,22 +172,28 @@
       <section class="panel surface" aria-labelledby="design-title">
         <div class="panel-head"><b id="design-title">Design</b><span>Style · Export</span></div>
 
-        <div class="sec">
-          <div class="sec-title">Presets</div>
+        <!-- Each group folds (Presets and Dots start open); closed, it shows its current value -->
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Presets</span><span class="acc-val" data-acc="presets"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="presets" data-presets></div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Dots</div>
+        <details class="sec acc" open>
+          <summary class="acc-head"><span>Dots</span><span class="acc-val" data-acc="dots"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="styles" data-dots role="group" aria-label="Dot style"></div>
           <div class="color">
             <label class="swatch" data-swatch="dotsColor"><input type="color" data-color="dotsColor" aria-label="Dot colour" /></label>
             <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="dotsColor" aria-label="Dot colour hex" />
           </div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Corners</div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Corners</span><span class="acc-val" data-acc="corners"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="styles" data-corners role="group" aria-label="Corner style"></div>
           <div class="seg" data-corner-dot role="group" aria-label="Corner centre">
             <button type="button" data-value="square" aria-pressed="false">Square centre</button>
@@ -198,19 +204,23 @@
             <label class="swatch" data-swatch="cornerColor"><input type="color" data-color="cornerColor" aria-label="Corner colour" /></label>
             <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="cornerColor" aria-label="Corner colour hex" />
           </div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Background</div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Background</span><span class="acc-val" data-acc="bg"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="color">
             <label class="swatch" data-swatch="bg"><input type="color" data-color="bg" aria-label="Background colour" /></label>
             <input class="input" type="text" maxlength="7" spellcheck="false" data-hex="bg" aria-label="Background colour hex" />
           </div>
           <label class="check"><input type="checkbox" data-in-design="transparent" />Transparent</label>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Logo <small>optional</small></div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Logo</span><span class="acc-val" data-acc="logo"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="drop" data-drop>
             <span class="drop-thumb" data-logo-thumb><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5V5M7.5 9.5 12 5l4.5 4.5M5 15v3a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18v-3"/></svg></span>
             <span class="drop-text"><span data-logo-name>Add a logo</span><small>PNG, SVG or JPG · stays on your device</small></span>
@@ -221,10 +231,12 @@
             <input type="range" min="15" max="40" step="1" data-logo-size aria-label="Logo size" disabled />
             <output data-logo-size-out>30%</output>
           </div>
-        </div>
+          </div>
+        </details>
 
-        <div class="sec">
-          <div class="sec-title">Scan safety</div>
+        <details class="sec acc">
+          <summary class="acc-head"><span>Scan safety</span><span class="acc-val" data-acc="scan"></span><svg class="acc-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <div class="acc-body">
           <div class="field-row"><span>Error correction</span></div>
           <div class="seg" data-ecc role="group" aria-label="Error correction" style="margin-top:6px">
             <button type="button" data-value="L" aria-pressed="false">L</button>
@@ -238,7 +250,8 @@
             <button type="button" data-value="2" aria-pressed="false">Small</button>
             <button type="button" data-value="4" aria-pressed="false">Standard</button>
           </div>
-        </div>
+          </div>
+        </details>
       </section>
     </main>
 
@@ -274,6 +287,6 @@
 
   <script src="../site.js?v=3"></script>
   <script src="../vendor/qr-code-styling.js"></script>
-  <script src="qr.js?v=2"></script>
+  <script src="qr.js?v=3"></script>
 </body>
 </html>
