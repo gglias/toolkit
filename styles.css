@@ -354,21 +354,21 @@ a.tool:hover .tool-card { outline-color: var(--select); transform: translateY(-3
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7);
-  transform: rotate(-4deg);
+  transform: none;
   transition: transform 0.5s var(--ease);
 }
 .art-qr svg { width: 100%; height: 100%; display: block; }
 a.tool:hover .art-qr { transform: rotate(0deg) scale(1.04); }
 
 /* Home colors preview: a palette strip and a contrast chip */
-.art-pal { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); width: 80%; height: 44%; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7); transform: rotate(-3deg); transition: transform 0.5s var(--ease); }
+.art-pal { position: relative; display: grid; grid-template-columns: repeat(8, 1fr); width: 80%; height: 44%; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7); transform: none; transition: transform 0.5s var(--ease); }
 .art-pal span { background: var(--c); }
 .art-pal b { position: absolute; right: 10px; bottom: -14px; display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 12px; border-radius: 10px; background: #4f46e5; color: #fff; font: 600 18px/1 var(--f-body); box-shadow: 0 10px 20px -8px rgb(0 0 0 / 0.6); }
 .art-pal b small { font: 400 11px/1 var(--f-mono); opacity: 0.85; }
 a.tool:hover .art-pal { transform: rotate(0deg) scale(1.03); }
 
 /* Home do-not-disturb preview: a little monitor with the sign */
-.art-dnd { display: grid; justify-items: center; width: 70%; transform: rotate(-3deg); transition: transform 0.5s var(--ease); }
+.art-dnd { display: grid; justify-items: center; width: 70%; transform: none; transition: transform 0.5s var(--ease); }
 .art-dnd-sign { display: grid; gap: 6px; width: 100%; aspect-ratio: 16 / 9; padding: 7% 8%; border: 5px solid #1d1d20; border-radius: 8px; background: #ff5b1f; color: #fff; box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7); align-content: space-between; }
 .art-dnd-sign b { font: 500 9px/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
 .art-dnd-sign strong { font: 700 clamp(1.1rem, 2.2vw, 1.6rem)/1 var(--f-display); letter-spacing: -0.04em; }
@@ -386,7 +386,7 @@ a.tool:hover .art-dnd { transform: rotate(0deg) scale(1.03); }
   border-radius: 22%;
   background: var(--accent);
   box-shadow: 0 20px 40px -14px rgb(0 0 0 / 0.7);
-  transform: rotate(-4deg);
+  transform: none;
   transition: transform 0.5s var(--ease);
 }
 .art-fav-icon img { width: 66%; height: auto; }

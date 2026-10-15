@@ -25,27 +25,10 @@
       ["🗄️", "Backend", "Talking to the database. It isn't listening."],
       ["🚬", "Smoke break", "Back in 5 minutes"],
       ["🚽", "Bathroom break", "Nature called. I answered."]
-    ],
-    el: [
-      ["🎧", "Σε συγκέντρωση", "Ερωτήσεις μετά το χρονόμετρο"],
-      ["📞", "Σε call", "Κάνε νόημα, μη μιλάς"],
-      ["⏳", "Κάνει render…", "Υπομονή. Κάνω κι εγώ."],
-      ["🧠", "Βαθιά δουλειά", "Ο εγκέφαλος στο 100%"],
-      ["🎨", "Pixel pushing", "Άλλο ένα pixel αριστερά"],
-      ["🍰", "Μην ενοχλείτε", "Εκτός αν φέρνετε γλυκό"],
-      ["🔴", "Ηχογράφηση", "Ησυχία, παρακαλώ"],
-      ["☕", "Διάλειμμα για καφέ", "Επιστρέφω σύντομα. Μάλλον."],
-      ["[figma]", "In Figma", "Auto layout is fighting back"],
-      ["📱", "Flutter mode", "Hot reload in progress"],
-      ["🖥️", "Frontend", "Centering a div. Pray for me."],
-      ["🗄️", "Backend", "Talking to the database. It isn't listening."],
-      ["🚬", "Smoke break", "Back in 5 minutes"],
-      ["🚽", "Bathroom break", "Nature called. I answered."]
     ]
   };
   var WORDS = {
-    en: { kicker: "Do not disturb", until: "until", left: "left", done: "Available", doneSub: "Come say hi 👋", free: "Free", more: "+15 min", imfree: "I'm free", stop: "Stop" },
-    el: { kicker: "Μην ενοχλείτε", until: "έως", left: "απομένουν", done: "Ελεύθερα", doneSub: "Πέρασε να τα πούμε 👋", free: "Ελεύθερα", more: "+15 λεπτά", imfree: "Τελείωσα", stop: "Σταμάτα" }
+    en: { kicker: "Do not disturb", until: "until", left: "left", done: "Available", doneSub: "Come say hi 👋", free: "Free", more: "+15 min", imfree: "I'm free", stop: "Stop" }
   };
   var THEMES = [
     ["ember", "Ember"], ["onair", "On air"], ["night", "Night"], ["calm", "Calm"], ["paper", "Paper"]
@@ -74,7 +57,7 @@
   } catch (e) { /* storage blocked */ }
 
   // A shared link carries the sign in the #hash
-  var KEYS = { e: "emoji", t: "text", s: "sub", d: "done", m: "mode", u: "until", f: "forMin", th: "theme", l: "lang" };
+  var KEYS = { e: "emoji", t: "text", s: "sub", d: "done", m: "mode", u: "until", f: "forMin", th: "theme" };
   var fromHash = new URLSearchParams(location.hash.slice(1));
   var showNow = fromHash.get("show") === "1";
   Object.keys(KEYS).forEach(function (k) {
@@ -87,7 +70,7 @@
   if (!/^\d\d:\d\d$/.test(state.until)) state.until = nextHalfHour();
   if (["until", "for", "none"].indexOf(state.mode) < 0) state.mode = "until";
   if (!THEMES.some(function (t) { return t[0] === state.theme; })) state.theme = "ember";
-  if (!PRESETS[state.lang]) state.lang = "en";
+  state.lang = "en";   // English only
 
   var save = function () { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* ignore */ } };
   var W = function () { return WORDS[state.lang]; };
@@ -138,7 +121,7 @@
     s.sub.hidden = !(done || state.sub);
     if (end !== null && !done) {
       s.until.textContent = W().until + " " + hhmm(new Date(end));
-      s.left.textContent = state.lang === "el" ? W().left + " " + dur(end - now) : dur(end - now) + " " + W().left;
+      s.left.textContent = dur(end - now) + " " + W().left;
       s.bar.style.width = Math.min(100, Math.max(0, (now - start) / Math.max(1, end - start) * 100)) + "%";
     }
     // fit long words: shrink the big text a little per extra character
@@ -283,7 +266,6 @@
   }).join("");
 
   var sync = function () {
-    press($("[data-lang]"), state.lang);
     press($("[data-mode]"), state.mode);
     press($("[data-for]"), state.forMin);
     press($("[data-themes]"), state.theme);
@@ -311,13 +293,6 @@
     if (!b) return;
     var i = Number(b.getAttribute("data-preset")), p = PRESETS[state.lang][i];
     state.preset = i; state.emoji = p[0]; state.text = p[1]; state.sub = p[2];
-    changed();
-  });
-  $("[data-lang]").addEventListener("click", function (e) {
-    var b = e.target.closest("button[data-value]");
-    if (!b) return;
-    state.lang = b.getAttribute("data-value");
-    if (state.preset > -1) { var p = PRESETS[state.lang][state.preset]; state.emoji = p[0]; state.text = p[1]; state.sub = p[2]; }
     changed();
   });
   [["[data-mode]", "mode"], ["[data-for]", "forMin"], ["[data-themes]", "theme"]].forEach(function (g) {

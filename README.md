@@ -12,7 +12,7 @@ Everything runs in your browser. Nothing you type or upload is sent anywhere: no
 
 - **Favicon generator**: from a logo (SVG, PNG, JPG, WebP) or a few letters to `favicon.ico` (16/32/48), `icon.svg` (with an optional invert for dark tabs), the Apple touch icon, Android icons (including maskable) and `manifest.webmanifest`, plus the `<head>` code. Previews in light and dark browser tabs, phone home screens and a search result, with contrast checks. One ZIP, packed in the page.
 
-- **Do not disturb**: a full-screen sign for your second monitor. Your message (or a funny preset, in English or Greek), a countdown until a time or for a while, five looks, and a green Available when the time is up. Keeps the screen awake; share the same sign by link.
+- **Do not disturb**: a full-screen sign for your second monitor. Your message (or one of the funny presets), a countdown until a time or for a while, five looks, and a green Available when the time is up. Keeps the screen awake; share the same sign by link.
 
 - **Color palette & contrast**: brand colors (primary, secondary, tertiary, neutral, error) to tonal palettes 50–950 in OKLCH and Material 3 roles for light and dark. Every text pair is checked against WCAG AA or AAA and derived colors are nudged until they pass (APCA shown for reference). Previews on two phones, light and dark. Exports Flutter (`ColorScheme`), SwiftUI + an Xcode asset catalog with light/dark appearances, Android `colors.xml` (+ `values-night`), Jetpack Compose (`lightColorScheme` / `darkColorScheme`), CSS variables, W3C design tokens, and swatches you can paste into Figma.
 
